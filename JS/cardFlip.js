@@ -1,6 +1,6 @@
 const $cardSection = document.querySelector('.cardSection');
 const $userLife = document.querySelector('.life');
-const userLifeCount = 5;
+let userLifeCount = 5;
 $userLife.textContent = userLifeCount;
 
 // Get cards images
@@ -44,3 +44,63 @@ const cardGenerator = () => {
 };
 
 cardGenerator();
+
+const $cardContainers = document.querySelectorAll('.cardContainer');
+const toggleCards = document.querySelectorAll('.toggleCard');
+
+// Restart game
+const restart = () => {
+  const cardImagesData = randomizeCardImages();
+  const $cardFaces = document.querySelectorAll('.cardFace');
+
+  cardImagesData.forEach((item, index) => {
+    $cardContainers[index].classList.remove('toggleCard');
+    setTimeout(() => {
+      $cardContainers[index].style.pointerEvents = 'all';
+      $cardFaces[index].src = item.imgSrc;
+      $cardContainers[index].setAttribute('name', item.name);
+      $cardSection.style.pointerEvents = 'all';
+    }, 1000);
+  });
+
+  userLifeCount = 5;
+  $userLife.textContent = userLifeCount;
+};
+
+// Check cards
+const checkCards = e => {
+  const clickedCard = e.target;
+  clickedCard.classList.add('flipped');
+  const flippedCards = document.querySelectorAll('.flipped');
+
+  if (flippedCards.length === 2) {
+    if (
+      flippedCards[0].getAttribute('name') ===
+      flippedCards[1].getAttribute('name')
+    ) {
+      console.log('match');
+      flippedCards.forEach(flippedCard => {
+        flippedCard.classList.remove('flipped');
+        flippedCard.style.pointerEvents = 'none';
+      });
+    } else {
+      console.log('wrong');
+      flippedCards.forEach(flippedCard => {
+        flippedCard.classList.remove('flipped');
+        setTimeout(() => flippedCard.classList.toggle('toggleCard'), 1000);
+      });
+      userLifeCount += -1;
+      $userLife.textContent = userLifeCount;
+      if (userLifeCount === 0) {
+        restart();
+      }
+    }
+  }
+};
+
+[...$cardContainers].forEach(cardcontainer => {
+  cardcontainer.onclick = e => {
+    cardcontainer.classList.toggle('toggleCard');
+    checkCards(e);
+  };
+});
