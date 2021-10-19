@@ -29,8 +29,15 @@ const mineInfoBoard = Array(ROW)
 
 // functions ----------------------------------------
 const createMine = () => {
-  //   Array.from({ length: MINE_NUM }, () => Math.floor(Math.random() * 100));
-  // Array.from({ length: MINE_NUM }, () => Math.floor(Math.random() * 100));
+  const mines = Array.from({ length: MINE_NUM }, () =>
+    Math.floor(Math.random() * 100)
+  );
+
+  mines.forEach((el, i) => {
+    if (mines.indexOf(el) !== i) mines[i] = Math.floor(Math.random() * 100);
+  });
+
+  return mines;
 };
 
 const setMineInfoBoard = mines => {
