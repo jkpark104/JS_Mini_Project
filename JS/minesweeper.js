@@ -1,9 +1,9 @@
 // constant ----------------------------------------
-const CLASS_SQUARE = {
+const CLASS_NAME = {
   '-1': 'nomal',
   '-2': 'flag',
   '-3': 'mine',
-  '-4': 'flag-mine',
+  '-4': 'flag',
   0: 'opened'
 };
 const SQUARE = {
@@ -91,8 +91,7 @@ const renderGameBoard = () => {
     boardLine.forEach((square, i) => {
       const $square = document.createElement('div');
       $square.dataset.col = i;
-      $square.className = `col col${i} ` + CLASS_SQUARE[square];
-      $square.textContent = square;
+      $square.className = `col col${i}`;
       $boardLine.append($square);
     });
     document.querySelector('.minesweeper-board').append($boardLine);
@@ -110,7 +109,8 @@ const handleRightClick = userSelected => {
   ) {
     gameBoard[row][col] =
       gameBoard[row][col] === SQUARE.FLAG ? SQUARE.NOMAL : SQUARE.MINE;
-    userSelected.classList.remove('flag');
+    userSelected.classList.remove(CLASS_NAME[SQUARE.FLAG]);
+    userSelected.innerHTML = '';
     return;
   }
   // 깃발이 아니였다면?
@@ -120,7 +120,8 @@ const handleRightClick = userSelected => {
   // 닫힌칸이면? 깃발 꽂기
   gameBoard[row][col] =
     gameBoard[row][col] === SQUARE.NOMAL ? SQUARE.FLAG : SQUARE.FLAG_MINE;
-  userSelected.classList.add('flag');
+  userSelected.classList.add(CLASS_NAME[SQUARE.FLAG]);
+  userSelected.innerHTML = `<i class='bx bxs-flag' ></i>`;
 };
 
 const openBoard = (row, col, visited) => {
@@ -129,9 +130,12 @@ const openBoard = (row, col, visited) => {
   const $squareToOpen = document
     .querySelector(`.row${row}`)
     .querySelector(`.col${col}`);
-  $squareToOpen.classList.add('open');
+  $squareToOpen.classList.add(CLASS_NAME[SQUARE.OPENED]);
   gameBoard[row][col] = mineInfoBoard[row][col];
-  $squareToOpen.textContent = mineInfoBoard[row][col];
+  $squareToOpen.classList.remove(CLASS_NAME[SQUARE.FLAG]);
+  $squareToOpen.textContent = mineInfoBoard[row][col]
+    ? mineInfoBoard[row][col]
+    : '';
 
   if (mineInfoBoard[row][col] > 0) return; // 숫자면 그만
 
@@ -198,7 +202,6 @@ const handleLeftClick = userSelected => {
   // 지뢰인 경우
   if (gameBoard[row][col] === SQUARE.MINE) {
     popupResult(false);
-    console.log('faile');
     return;
   }
 
@@ -209,20 +212,21 @@ const handleLeftClick = userSelected => {
   // 지뢰 빼고 전부 열었을 경우
   if (isAllMinesFined()) {
     popupResult(true);
-    console.log('win');
   }
 };
 
 // event bindings ----------------------------------------
 plantMine();
 renderGameBoard();
+console.log(mineInfoBoard);
 
 // 우클릭
 const $minesweeperBoard = document.querySelector('.minesweeper-board');
 $minesweeperBoard.oncontextmenu = e => {
   e.preventDefault();
-  handleRightClick(e.target);
-  console.log(gameBoard);
+  e.target.matches('i')
+    ? handleRightClick(e.target.parentNode)
+    : handleRightClick(e.target);
 };
 
 // 좌클릭
