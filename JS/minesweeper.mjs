@@ -3,6 +3,12 @@ import { getState, setState } from './state.mjs';
 // closer
 const minesweeperGame = (() => {
   // constant
+  const SOUND = {
+    leftClk: '../music/leftClickSound.mp3',
+    rightClk: '../music/rightClickSound.mp3',
+    win: '../music/winSound.mp3',
+    lose: '../music/loseSound.mp3'
+  };
   const SQUARE = {
     NOMAL: -1,
     FLAG: -2,
@@ -18,9 +24,9 @@ const minesweeperGame = (() => {
     0: 'opened'
   };
   const MODE = {
-    EASY: { ROW: 10, COL: 10, MINE_NUM: 15 },
-    NOMAL: { ROW: 20, COL: 20, MINE_NUM: 70 },
-    HARD: { ROW: 25, COL: 25, MINE_NUM: 150 }
+    EASY: { ROW: 10, COL: 10, MINE_NUM: 10 },
+    NOMAL: { ROW: 20, COL: 20, MINE_NUM: 60 },
+    HARD: { ROW: 25, COL: 25, MINE_NUM: 140 }
   };
 
   // state ----------------------------------------
@@ -133,6 +139,8 @@ const minesweeperGame = (() => {
 
   const renderGameBoard = () => {
     const $minesweeperBoard = document.querySelector('.minesweeper-board');
+
+    document.querySelector('.minesweeper-board').classList.remove('win');
 
     setStyleGameBoard();
     $minesweeperBoard.innerHTML = '';
@@ -269,6 +277,11 @@ const minesweeperGame = (() => {
     });
     $minesweeperBoard.append($fragment);
   };
+
+  const playSound = mode => {
+    new Audio(SOUND[mode]).play();
+  };
+
   return {
     renderNewGame() {
       gameBoard = createBoard(SQUARE.NOMAL);
@@ -279,6 +292,9 @@ const minesweeperGame = (() => {
     handleRightClick(userSelected) {
       const { row } = userSelected.parentNode.dataset;
       const { col } = userSelected.dataset;
+
+      // 우클릭 소리
+      playSound('rightClk');
 
       // 깃발이였다면? 깃발 제거
       if (
@@ -307,6 +323,9 @@ const minesweeperGame = (() => {
       const { row } = userSelected.parentNode.dataset;
       const { col } = userSelected.dataset;
 
+      // 좌클릭 소리
+      playSound('leftClk');
+
       // 깃발인 경우
       if (
         gameBoard[row][col] === SQUARE.FLAG ||
@@ -319,6 +338,7 @@ const minesweeperGame = (() => {
       // 지뢰인 경우 => 패배
       if (gameBoard[row][col] === SQUARE.MINE) {
         showAllGameBoard();
+        playSound('lose');
         setTimeout(popupResult, 100, false);
         return;
       }
@@ -330,6 +350,8 @@ const minesweeperGame = (() => {
       // 지뢰 빼고 전부 열었을 경우 => 승리
       if (isAllMinesFined()) {
         showAllGameBoard();
+        document.querySelector('.minesweeper-board').classList.add('win');
+        playSound('win');
         setTimeout(popupResult, 1000, true);
       }
     },
