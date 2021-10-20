@@ -1,15 +1,9 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  height: 100vh;
+.card-memory-game {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  display: none;
 }
 
 .scoreBoard {
@@ -28,9 +22,8 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 8rem);
   grid-template-rows: repeat(4, 8rem);
-  grid-gap: 2rem;
+  grid-gap: 1rem;
   perspective: 800px;
-  margin: 50px;
 }
 
 .cardContainer {
