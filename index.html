@@ -8,6 +8,13 @@
       href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -42,7 +49,9 @@
           </button>
         </div>
         <!-- <button type="button" class="restart">Restart</button> -->
-        <h2 class="display display-title">Mine Sweeper</h2>
+        <h2 class="display display-title">
+          <i class="fas fa-bomb"></i> Mine Sweeper <i class="fas fa-bomb"></i>
+        </h2>
         <span class="display display-rgb a11y-hidden">rgb(184, 60, 143)</span>
         <div class="wrapper">
           <span class="display-round">Round: 1</span>
@@ -55,7 +64,7 @@
       <div class="minesweeper-board"></div>
     </section>
 
-    <section class="color-game">
+    <section class="color-game hidden">
       <ul class="color-palette">
         <li class="palette-item color1"></li>
         <li class="palette-item color2"></li>

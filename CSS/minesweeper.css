@@ -20,7 +20,6 @@
   height: var(--gameBoard-width);
   border: 1px solid rgba(0, 0, 0, 0.1);
   font-weight: 700;
-  cursor: pointer;
 }
 .row {
   display: flex;
@@ -36,6 +35,7 @@
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.1);
   font-size: var(--font-size);
+  cursor: pointer;
 }
 .col:hover {
   background-color: rgba(0, 0, 0, 0.2);
@@ -48,4 +48,7 @@
   background-color: steelblue;
   color: white;
   transition: 0.5s all ease;
+}
+.bomb {
+  background-color: rgba(255, 0, 0, 0.8) !important;
 }
