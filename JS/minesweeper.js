@@ -20,12 +20,15 @@ const minesweeperGame = (() => {
     FLAG_MINE: -4,
     OPENED: 0
   };
-
-  const ROW = 10;
-  const COL = 10;
-  const MINE_NUM = 20;
+  const MODE = {
+    EASY: { ROW: 10, COL: 10, MINE_NUM: 20 },
+    NOMAL: { ROW: 20, COL: 20, MINE_NUM: 70 },
+    HARD: { ROW: 30, COL: 30, MINE_NUM: 200 }
+  };
 
   // state
+  const { ROW, COL, MINE_NUM } = MODE.NOMAL;
+
   const gameBoard = Array(ROW)
     .fill()
     .map(() => Array(COL).fill(SQUARE.NOMAL));
@@ -35,9 +38,16 @@ const minesweeperGame = (() => {
     .map(() => Array(COL).fill(0));
 
   // functions
+  const setStyleGameBoard = () => {
+    document.documentElement.style.setProperty('--row', ROW);
+    document.documentElement.style.setProperty(
+      '--width-ratio',
+      100 / ROW + '%'
+    );
+  };
   const createMine = () => {
     const mines = Array.from({ length: MINE_NUM }, () =>
-      Math.floor(Math.random() * 100)
+      Math.floor(Math.random() * (ROW * COL))
     );
 
     mines.forEach((el, i) => {
@@ -90,6 +100,7 @@ const minesweeperGame = (() => {
   };
 
   const renderGameBoard = () => {
+    setStyleGameBoard();
     gameBoard.forEach((boardLine, i) => {
       const $boardLine = document.createElement('div');
       $boardLine.className = `row row${i}`;
