@@ -4,40 +4,58 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/style_park.css" />
     <title>Document</title>
-    <link rel="stylesheet" href="./CSS/reset.css" />
-    <link rel="stylesheet" href="./CSS/base.css" />
-    <link rel="stylesheet" href="./CSS/style_park.css" />
-
-    <!-- <link rel="stylesheet" href="css/popup.css" /> -->
-    <!-- <link rel="stylesheet" href="css/icon.css" /> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
   </head>
 
   <body>
-    <section class="color-game">
-      <div class="inner">
-        <h2 class="title a11y-hidden">Color Guessing Game</h2>
-        <nav class="navigation">
-          <button type="button" class="restart">Restart</button>
-          <span class="display-rgb">rgb(184, 60, 143)</span>
+    <header class="header">
+      <h1 class="title a11y-hidden">Mini Game</h1>
+      <nav class="navigation">
+        <div class="game-mode">
+          <button type="button" class="game-mode-button" data-mode="easy">
+            EASY
+          </button>
+          <button
+            type="button"
+            class="game-mode-button current-mode"
+            data-mode="normal"
+          >
+            NORMAL
+          </button>
+          <button type="button" class="game-mode-button" data-mode="hard">
+            HARD
+          </button>
+        </div>
+        <span class="display display-rgb">rgb(184, 60, 143)</span>
+        <div class="wrapper">
           <span class="display-round">Round: 1</span>
           <span class="display-score">Score: 0</span>
-        </nav>
-        <ul class="color-palette">
-          <li class="palette-item color1"></li>
-          <li class="palette-item color2"></li>
-          <li class="palette-item color3"></li>
-          <li class="palette-item color4"></li>
-        </ul>
-        <button type="button" class="hint">HINT</button>
-        <ul class="hint-list">
-          <li class="hint-item"></li>
-          <li class="hint-item"></li>
-          <li class="hint-item"></li>
-        </ul>
-        <footer></footer>
-      </div>
+        </div>
+      </nav>
+    </header>
+    <section class="color-game">
+      <ul class="color-palette">
+        <li class="palette-item color1">
+          <!-- <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 32 32">
+          <circle class="circle" cx="16" cy="16" r="16" fill="#0c3" />
+          <path class="check" d="M9 16l5 5 9-9" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round">
+        </svg> -->
+        </li>
+        <li class="palette-item color2"></li>
+        <li class="palette-item color3"></li>
+        <li class="palette-item color4"></li>
+      </ul>
+      <button type="button" class="hint">HINT</button>
+      <ul class="hint-list"></ul>
     </section>
-    <script type="module" src="JS/js_park.mjs"></script>
+    <footer class="footer">
+      <button type="button" class="home">HOME</button>
+      <button type="button" class="restart">Restart</button>
+    </footer>
+    <script type="module" src="js/js_park.mjs"></script>
   </body>
 </html>

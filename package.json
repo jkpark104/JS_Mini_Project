@@ -13,5 +13,8 @@
     "eslint-plugin-import": "^2.24.2",
     "live-server": "^1.2.1",
     "prettier": "2.3.2"
+  },
+  "dependencies": {
+    "animejs": "^3.2.1"
   }
 }

@@ -67,14 +67,6 @@ body {
   }
 }
 
-@media screen and (max-width: 799px) {
-  .restart {
-    order: 1;
-    position: absolute;
-    left: 1rem;
-  }
-}
-
 @media screen and (min-width: 800px) {
   .display {
     position: absolute;
@@ -89,15 +81,16 @@ body {
 }
 
 .footer {
-  position: relative;
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   min-height: 3.5rem;
   background: steelblue;
+  padding: 0 3rem 0;
 }
 
-.restart {
-  position: absolute;
-  right: 0;
+.restart,
+.home {
   color: #fff;
   font-size: inherit;
   cursor: pointer;
@@ -105,14 +98,10 @@ body {
   border: 0.125rem solid #fff;
   border-radius: 0.5rem;
   padding: 0.5rem;
-  height: 2.5rem;
-  margin: auto;
-  margin-right: 3rem;
-  top: 0;
-  bottom: 0;
 }
 
-.restart:hover {
+.restart:hover,
+.home:hover {
   color: steelblue;
   background-color: white;
 }
