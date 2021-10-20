@@ -18,8 +18,8 @@
 
 .cardSection {
   display: grid;
-  grid-template-columns: repeat(4, 10rem);
-  grid-template-rows: repeat(4, 10rem);
+  grid-template-columns: repeat(4, 8rem);
+  grid-template-rows: repeat(4, 8rem);
   grid-gap: 1rem;
   perspective: 800px;
   margin: 30px 0;
@@ -28,7 +28,7 @@
 .cardContainer {
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
   border-radius: 10px;
 }

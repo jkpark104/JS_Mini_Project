@@ -53,6 +53,10 @@ const renderCards = () => {
   });
 };
 
+const checkCards = e => {
+  const clickedCard = e.target;
+};
+
 renderCards();
 
 document.querySelector('.game-mode').onclick = e => {
