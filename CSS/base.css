@@ -1,0 +1,86 @@
+/* COMMON */
+body {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+.a11y-hidden {
+  overflow: hidden;
+  position: absolute !important;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.navigation {
+  display: flex;
+  position: relative;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #fff;
+  background: steelblue;
+
+  /* margin-bottom: 1.5rem; */
+}
+
+@media screen and (min-width: 800px) {
+  .navigation {
+    justify-content: space-between;
+    min-height: 4rem;
+    padding: 0 3rem 0;
+  }
+}
+
+@media screen and (max-width: 799px) {
+  .navigation {
+    flex-direction: column;
+    justify-content: center;
+    min-height: 5rem;
+    gap: 0.5rem;
+  }
+}
+
+.restart {
+  z-index: 1;
+  color: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0.125rem solid #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+@media screen and (max-width: 799px) {
+  .restart {
+    order: 1;
+    position: absolute;
+    left: 1rem;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .display {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+}
+
+.display-round {
+  margin-right: 1.5rem;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 3rem;
+  background: steelblue;
+}
+
+.hidden {
+  display: none !important;
+}

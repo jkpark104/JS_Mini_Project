@@ -1,7 +1,7 @@
 const $cardSection = document.querySelector('.cardSection');
-const $userLife = document.querySelector('.life');
-const userLifeCount = 5;
-$userLife.textContent = userLifeCount;
+// const $userLife = document.querySelector('.life');
+// const userLifeCount = 5;
+// $userLife.textContent = userLifeCount;
 
 // Get cards images
 const getCardImages = () => [

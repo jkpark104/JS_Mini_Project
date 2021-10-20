@@ -1,8 +1,5 @@
-@import url('./reset.css');
 @import url('./popup.css');
-body {
-  font-family: 'IBM Plex Sans KR', sans-serif;
-}
+
 .minesweeper-title {
   padding: 2rem;
   font-size: 2rem;
