@@ -1,1 +1,3 @@
-console.log('hi');
+import { getState, setState } from './state';
+
+console.log(getState());

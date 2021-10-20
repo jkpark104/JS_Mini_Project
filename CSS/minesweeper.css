@@ -1,4 +1,3 @@
-@import url('./reset.css');
 @import url('./popup.css');
 :root {
   --gameBoard-width: 500px;
