@@ -138,18 +138,18 @@ const minesweeperGame = (() => {
     $minesweeperBoard.innerHTML = '';
     const $fragment = document.createDocumentFragment();
 
-    gameBoard.forEach((boardLine, i) => {
-      const $boardLine = document.createElement('div');
-      $boardLine.className = `row row${i}`;
-      $boardLine.dataset.row = i;
+    gameBoard.forEach((boardLine, x) => {
+      const $row = document.createElement('div');
+      $row.className = `row row${x}`;
+      $row.dataset.row = x;
 
-      boardLine.forEach((square, i) => {
-        const $square = document.createElement('div');
-        $square.dataset.col = i;
-        $square.className = `col col${i}`;
-        $boardLine.append($square);
+      boardLine.forEach((_, y) => {
+        const $col = document.createElement('div');
+        $col.dataset.col = y;
+        $col.className = `col col${y}`;
+        $row.append($col);
       });
-      $fragment.append($boardLine);
+      $fragment.append($row);
     });
     $minesweeperBoard.append($fragment);
   };
@@ -217,21 +217,58 @@ const minesweeperGame = (() => {
   const showAllGameBoard = () => {
     const $minesweeperBoard = document.querySelector('.minesweeper-board');
 
-    mineInfoBoard.forEach((boardLine, i) => {
-      const $row = $minesweeperBoard.querySelector('.row' + i);
-      boardLine.forEach((square, i) => {
-        const $col = $row.querySelector('.col' + i);
+    $minesweeperBoard.innerHTML = '';
+    const $fragment = document.createDocumentFragment();
 
-        if (square === SQUARE.MINE || square === SQUARE.FLAG_MINE) {
-          $col.classList.add('bomb');
-          $col.innerHTML = `<i class="fas fa-bomb"></i>`;
-        } else {
-          $col.innerHTML = square;
-        }
+    mineInfoBoard.forEach((boardLine, x) => {
+      const $row = document.createElement('div');
+      $row.className = `row row${x}`;
+      $row.dataset.row = x;
+
+      boardLine.forEach((box, y) => {
+        const $col = document.createElement('div');
+        $col.dataset.col = y;
+        $col.className = `col col${y}`;
+
+        // $col.innerHTML = box;
+        // if (
+        //   gameBoard[x][y] === SQUARE.MINE ||
+        //   gameBoard[x][y] === SQUARE.FLAG_MINE
+        // ) {
+        //   $col.classList.add(CLASS_NAME[SQUARE.MINE]);
+        //   $col.innerHTML = `<i class="fas fa-bomb"></i>`;
+        // }
+        // if (gameBoard[x][y] === SQUARE.FLAG) {
+        //   $col.classList.add(CLASS_NAME[SQUARE.FLAG]);
+        // }
+        // if (gameBoard[x][y] >= SQUARE.OPENED) {
+        //   $col.classList.add(CLASS_NAME[SQUARE.OPENED]);
+        // }
+
+        const isValid = CODE =>
+          CODE >= 0 ? gameBoard[x][y] >= CODE : gameBoard[x][y] === CODE;
+
+        $col.innerHTML =
+          isValid(SQUARE.MINE) || isValid(SQUARE.FLAG_MINE)
+            ? `<i class="fas fa-bomb"></i>`
+            : box || '';
+
+        $col.classList.toggle(
+          CLASS_NAME[SQUARE.MINE],
+          isValid(SQUARE.MINE) || isValid(SQUARE.FLAG_MINE)
+        );
+        $col.classList.toggle(CLASS_NAME[SQUARE.FLAG], isValid(SQUARE.FLAG));
+        $col.classList.toggle(
+          CLASS_NAME[SQUARE.OPENED],
+          isValid(SQUARE.OPENED)
+        );
+
+        $row.append($col);
       });
+      $fragment.append($row);
     });
+    $minesweeperBoard.append($fragment);
   };
-
   return {
     renderNewGame() {
       gameBoard = createBoard(SQUARE.NOMAL);
@@ -256,7 +293,9 @@ const minesweeperGame = (() => {
       }
       // 깃발이 아니였다면?
       // 열린칸이면? 대기
-      if (gameBoard[row][col] >= 0) return;
+      if (gameBoard[row][col] >= SQUARE.OPENED) {
+        return;
+      }
 
       // 닫힌칸이면? 깃발 꽂기
       gameBoard[row][col] =

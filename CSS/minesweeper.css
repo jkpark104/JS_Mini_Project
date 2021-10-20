@@ -49,6 +49,6 @@
   color: white;
   transition: 0.5s all ease;
 }
-.bomb {
+.mine {
   background-color: rgba(255, 0, 0, 0.8) !important;
 }
