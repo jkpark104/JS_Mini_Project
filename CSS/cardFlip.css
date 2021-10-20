@@ -6,21 +6,24 @@
   font-size: 30px;
 }
 
-h2 {
-  margin: 20px 0;
+.game-status {
+  display: flex;
+  position: absolute;
+  top: 90px;
+  justify-content: spa;
 }
 
 .elapsedTime {
-  margin: 10px 0;
+  margin: 0 0 0 50px;
 }
 
 .cardSection {
   display: grid;
-  grid-template-columns: repeat(4, 8rem);
-  grid-template-rows: repeat(4, 8rem);
+  grid-template-columns: repeat(4, 10rem);
+  grid-template-rows: repeat(4, 10rem);
   grid-gap: 1rem;
   perspective: 800px;
-  margin: 50px 0;
+  margin: 30px 0;
 }
 
 .cardContainer {
@@ -28,6 +31,7 @@ h2 {
   transform-style: preserve-3d;
   transition: transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+  border-radius: 10px;
 }
 
 .cardFace,
@@ -36,9 +40,10 @@ h2 {
   height: 100%;
   position: absolute;
   pointer-events: none;
+  border-radius: 10px;
 }
 .cardBack {
-  background: beige;
+  background-color: #4682b4;
   backface-visibility: hidden;
 }
 

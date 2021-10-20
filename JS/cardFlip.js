@@ -1,75 +1,71 @@
 const makeCardSection = () => {
-  document.querySelector('.display-title').textContent = 'Flip-Card Memory';
   const $cardSection = document.querySelector('.cardSection');
-  const $userLife = document.querySelector('.userLife');
   const $toggleCards = document.querySelectorAll('.toggleCard');
-  let userLifeCount = 10;
+  const $restart = document.querySelector('.restart');
+  // local state
+  const $userLife = document.querySelector('.userLife');
+  let userLifeCount = 7;
   $userLife.textContent = userLifeCount;
 
+  const MODE = {
+    EASY: { CARDSCOUNT: 16 },
+    NOMAL: { CARDSCOUNT: 32 },
+    HARD: { CARDSCOUNT: 64 }
+  };
+  // global state
+  // const round = 1;
   // Elasped Time control
-  $cardSection.onclick = (() => {
-    // const isRunning = false;
-    let elapsedTime = { mm: 0, ss: 0, ms: 0 };
+  const isRunning = false;
+  let elapsedTime = { mm: 0, ss: 0, ms: 0 };
 
-    const formatElapsedTime = (() => {
-      const format = n => (n < 10 ? '0' + n : n + '');
-      return ({ mm, ss, ms }) => `${format(mm)}:${format(ss)}:${format(ms)}`;
-    })();
+  const formatElapsedTime = (() => {
+    const format = n => (n < 10 ? '0' + n : n + '');
+    return ({ mm, ss, ms }) => `${format(mm)}:${format(ss)}:${format(ms)}`;
+  })();
 
-    const renderElapsedTime = (() => {
-      const $elapsedTime = document.querySelector('.elapsedTime');
-      return () => {
-        $elapsedTime.textContent = formatElapsedTime(elapsedTime);
-      };
-    })();
-
-    const reset = () => {
-      elapsedTime = { mm: 0, ss: 0, ms: 0 };
-      renderElapsedTime();
-    };
-
-    const StartOrStopElapsedTime = (() => {
-      let timerId = null;
-
-      const start = () => {
-        let { mm, ss, ms } = elapsedTime;
-
-        timerId = setInterval(() => {
-          ms += 1;
-          if (ms >= 100) {
-            ss += 1;
-            ms = 0;
-          }
-
-          if (ss >= 60) {
-            mm += 1;
-            ss = 0;
-          }
-
-          elapsedTime = { mm, ss, ms };
-          renderElapsedTime();
-        }, 10);
-      };
-
-      const stop = () => clearInterval(timerId);
-
-      // stop 조건을 게임 완료로 수정 필요
-      return () => {
-        // isRunning ? stop() : start();
-        // isRunning = !isRunning;
-        start();
-        if ($toggleCards.length === 16 || userLifeCount === 0) {
-          stop();
-          reset();
-        }
-      };
-    })();
-
-    return ({ target }) => {
-      if (!target.classList.contains('cardContainer')) return;
-      StartOrStopElapsedTime();
+  const renderElapsedTime = (() => {
+    const $elapsedTime = document.querySelector('.elapsedTime');
+    return () => {
+      $elapsedTime.textContent = formatElapsedTime(elapsedTime);
     };
   })();
+
+  const StartOrStopElapsedTime = (() => {
+    let timerId = null;
+
+    const start = () => {
+      let { mm, ss, ms } = elapsedTime;
+
+      timerId = setInterval(() => {
+        ms += 1;
+        if (ms >= 100) {
+          ss += 1;
+          ms = 0;
+        }
+
+        if (ss >= 60) {
+          mm += 1;
+          ss = 0;
+        }
+
+        elapsedTime = { mm, ss, ms };
+        renderElapsedTime();
+      }, 10);
+    };
+
+    const stop = () => clearInterval(timerId);
+
+    // stop 조건을 게임 완료로 수정 필요
+    return () => {
+      isRunning ? stop() : start();
+      // isRunning = !isRunning;
+    };
+  })();
+
+  $cardSection.onclick = e => {
+    if (!e.target.classList.contains('cardContainer')) return;
+    StartOrStopElapsedTime();
+  };
 
   // Get cards images
   const getCardImages = () => [
@@ -90,6 +86,12 @@ const makeCardSection = () => {
     { imgSrc: '../cardImg/8.jpg', name: '8' },
     { imgSrc: '../cardImg/8.jpg', name: '8' }
   ];
+  // console.log(
+  //   Array.from({ length: 64 }, (_, index) => ({
+  //     imgSrc: `../cardImg/${Math.floor(index / 2) + 1}.jpg`,
+  //     name: `${Math.floor(index / 2) + 1}`
+  //   }))
+  // );
 
   // Randomize cards
   const randomizeCardImages = () => {
@@ -99,7 +101,8 @@ const makeCardSection = () => {
   };
 
   // Restart game
-  const restart = text => {
+  $restart.onclick = () => {
+    // 라운드에 대한 처리 필요
     const cardImagesData = randomizeCardImages();
     const $cardFaces = document.querySelectorAll('.cardFace');
     const $cardContainers = document.querySelectorAll('.cardContainer');
@@ -118,7 +121,6 @@ const makeCardSection = () => {
 
     userLifeCount = 5;
     $userLife.textContent = userLifeCount;
-    setTimeout(() => window.alert(text), 100);
   };
 
   // Check cards
@@ -146,21 +148,32 @@ const makeCardSection = () => {
             flippedCard.classList.toggle('toggleCard');
           }, 1000);
         });
-
+        console.log(elapsedTime);
         userLifeCount += -1;
         $userLife.textContent = userLifeCount;
 
         if (userLifeCount === 0) {
-          document.querySelector('.display-round').textContent.split(':')[1]++;
-          restart('try again!');
+          // isRunning = !isRunning;
+          setTimeout(
+            () =>
+              window.alert(`다시 도전하세요! 
+          \n경과시간 : ${formatElapsedTime(elapsedTime)}
+          `),
+            100
+          );
         }
       }
     }
     // console.log($toggleCards.length);
     if ($toggleCards.length === 16) {
-      document.querySelector('.display-round').textContent.split(':')[1]++;
-
-      restart('You win!');
+      // isRunning = !isRunning;
+      setTimeout(
+        () =>
+          window.alert(`You win!
+      \n경과시간 : ${formatElapsedTime(elapsedTime)}
+      `),
+        100
+      );
     }
   };
 
