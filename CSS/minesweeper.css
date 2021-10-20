@@ -1,0 +1,45 @@
+@import url('./popup.css');
+.minesweeper-title {
+  padding: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+.minesweeper-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.minesweeper-board {
+  width: 500px;
+  height: 500px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+}
+.row {
+  --width-ratio: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--width-ratio);
+}
+.col {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.col:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.flag {
+  color: red;
+  font-size: 1.5em;
+  transition: 0.3s all ease;
+}
+.opened {
+  background-color: steelblue;
+  color: white;
+  transition: 0.5s all ease;
+}

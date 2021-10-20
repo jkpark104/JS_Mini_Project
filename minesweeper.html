@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="css/base.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/minesweeper.css" />
+    <title>Mine Sweeper</title>
+  </head>
+  <body>
+    <div class="minesweeper-wrap">
+      <h1 class="minesweeper-title">Mine Sweeper</h1>
+      <div class="minesweeper-board"></div>
+    </div>
+
+    <div class="modal-wrap hidden">
+      <div class="modal">
+        <h2 class="title">승리/실패</h2>
+        <p class="modal-content">
+          승리하셨습니다 / 실패하셨습니다. 더 하시겠습니까?
+        </p>
+        <div class="button-wrap">
+          <button type="button" class="modal-accept">네</button>
+          <button type="button" class="modal-cancel">아니요</button>
+        </div>
+
+        <button class="modal-close"><i class="bx bx-x"></i></button>
+      </div>
+    </div>
+
+    <script src="js/minesweeper.js"></script>
+  </body>
+</html>

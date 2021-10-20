@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/style_park.css" />
+    <link rel="stylesheet" href="css/cardFlip.css" />
+    <link rel="stylesheet" href="css/minesweeper.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <h1 class="title a11y-hidden">Mini Game</h1>
+      <nav class="navigation">
+        <button type="button" class="restart">Restart</button>
+        <h2 class="display display-title">Mine Sweeper</h2>
+        <span class="display display-rgb a11y-hidden">rgb(184, 60, 143)</span>
+        <div class="wrapper">
+          <span class="display-round">Round: 1</span>
+          <span class="display-score">Score: 0</span>
+        </div>
+      </nav>
+    </header>
+
+    <section class="minesweeper-wrap hidden">
+      <div class="minesweeper-board"></div>
+    </section>
+
+    <section class="color-game hidden">
+      <ul class="color-palette">
+        <li class="palette-item color1"></li>
+        <li class="palette-item color2"></li>
+        <li class="palette-item color3"></li>
+        <li class="palette-item color4"></li>
+      </ul>
+      <button type="button" class="hint">HINT</button>
+      <ul class="hint-list">
+        <li class="hint-item"></li>
+        <li class="hint-item"></li>
+        <li class="hint-item"></li>
+      </ul>
+    </section>
+
+    <section class="card-memory-game">
+      <!-- <h1>Level <span class="gameLevel">1</span></h1> -->
+      <div class="elapsedTime">00:00:00</div>
+      <section class="cardSection"></section>
+    </section>
+
+    <footer class="footer"></footer>
+    <!-- <script type="module" src="js/main.mjs"></script> -->
+    <script src="js/cardFlip.js "></script>
+    <script src="js/minesweeper.js"></script>
+  </body>
+</html>

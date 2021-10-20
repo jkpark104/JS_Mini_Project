@@ -1,0 +1,46 @@
+.card-memory-game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: none;
+}
+
+.scoreBoard {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  font-size: 30px;
+}
+
+.elapsedTime {
+  margin: 10px 0;
+  font-size: 20px;
+}
+
+.cardSection {
+  display: grid;
+  grid-template-columns: repeat(4, 8rem);
+  grid-template-rows: repeat(4, 8rem);
+  grid-gap: 1rem;
+  perspective: 800px;
+}
+
+.cardContainer {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+}
+
+.cardFace,
+.cardBack {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  pointer-events: none;
+}
+.cardBack {
+  background: beige;
+  backface-visibility: hidden;
+}
