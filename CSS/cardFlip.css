@@ -3,19 +3,15 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  display: none;
+  font-size: 30px;
 }
 
-.scoreBoard {
-  display: flex;
-  width: 100%;
-  justify-content: space-evenly;
-  font-size: 30px;
+h2 {
+  margin: 20px 0;
 }
 
 .elapsedTime {
   margin: 10px 0;
-  font-size: 20px;
 }
 
 .cardSection {
@@ -24,6 +20,7 @@
   grid-template-rows: repeat(4, 8rem);
   grid-gap: 1rem;
   perspective: 800px;
+  margin: 50px 0;
 }
 
 .cardContainer {
@@ -43,4 +40,8 @@
 .cardBack {
   background: beige;
   backface-visibility: hidden;
+}
+
+.toggleCard {
+  transform: rotateY(180deg);
 }

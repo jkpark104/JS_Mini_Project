@@ -1,9 +1,3 @@
-// functions
-const popupResult = isWin => {
-  alert(isWin ? '승리하셨습니다!' : '실패하셨습니다...');
-  minesweeperGame.renderNewGame();
-};
-
 // closer
 const minesweeperGame = (() => {
   // constant
@@ -22,23 +16,33 @@ const minesweeperGame = (() => {
     OPENED: 0
   };
   const MODE = {
-    EASY: { ROW: 10, COL: 10, MINE_NUM: 20 },
+    EASY: { ROW: 10, COL: 10, MINE_NUM: 15 },
     NOMAL: { ROW: 20, COL: 20, MINE_NUM: 70 },
     HARD: { ROW: 30, COL: 30, MINE_NUM: 200 }
   };
 
   // state
-  const { ROW, COL, MINE_NUM } = MODE.NOMAL;
+  let { ROW, COL, MINE_NUM } = MODE.NOMAL;
 
-  const gameBoard = Array(ROW)
+  let gameBoard = Array(ROW)
     .fill()
     .map(() => Array(COL).fill(SQUARE.NOMAL));
 
-  const mineInfoBoard = Array(ROW)
+  let mineInfoBoard = Array(ROW)
     .fill()
     .map(() => Array(COL).fill(0));
 
   // functions
+  const createBoard = filling =>
+    Array(ROW)
+      .fill()
+      .map(() => Array(COL).fill(filling));
+
+  const popupResult = isWin => {
+    alert(isWin ? '승리하셨습니다!' : '실패하셨습니다...');
+    minesweeperGame.renderNewGame();
+  };
+
   const setStyleGameBoard = () => {
     document.documentElement.style.setProperty('--row', ROW);
     document.documentElement.style.setProperty(
@@ -183,6 +187,8 @@ const minesweeperGame = (() => {
 
   return {
     renderNewGame() {
+      gameBoard = createBoard(SQUARE.NOMAL);
+      mineInfoBoard = createBoard(0);
       plantMine();
       renderGameBoard();
     },
@@ -238,6 +244,12 @@ const minesweeperGame = (() => {
       if (isAllMinesFined()) {
         popupResult(true);
       }
+    },
+    changeMode(mode) {
+      const codeMode = mode.toUpperCase();
+      ROW = MODE[codeMode].ROW;
+      COL = MODE[codeMode].COL;
+      MINE_NUM = MODE[codeMode].MINE_NUM;
     }
   };
 })();
@@ -257,4 +269,16 @@ $minesweeperBoard.oncontextmenu = e => {
 $minesweeperBoard.onclick = e => {
   if (!e.target.classList.contains('col')) return;
   minesweeperGame.handleLeftClick(e.target.closest('.col'));
+};
+
+// 모드 선택
+document.querySelector('.game-mode').onclick = e => {
+  if (!e.target.classList.contains('game-mode-button')) return;
+
+  minesweeperGame.changeMode(e.target.dataset.mode);
+  [...document.querySelectorAll('.game-mode-button')].forEach($button =>
+    $button.classList.toggle('current-mode', e.target === $button)
+  );
+
+  minesweeperGame.renderNewGame();
 };

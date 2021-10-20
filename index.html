@@ -26,9 +26,24 @@
     <header class="header">
       <h1 class="title a11y-hidden">Mini Game</h1>
       <nav class="navigation">
-        <button type="button" class="restart">Restart</button>
-        <h2 class="display display-title a11y-hidden">Mine Sweeper</h2>
-        <span class="display display-rgb">rgb(184, 60, 143)</span>
+        <div class="game-mode">
+          <button type="button" class="game-mode-button" data-mode="easy">
+            EASY
+          </button>
+          <button
+            type="button"
+            class="game-mode-button current-mode"
+            data-mode="nomal"
+          >
+            NOMAL
+          </button>
+          <button type="button" class="game-mode-button" data-mode="hard">
+            HARD
+          </button>
+        </div>
+        <!-- <button type="button" class="restart">Restart</button> -->
+        <h2 class="display display-title">Mine Sweeper</h2>
+        <span class="display display-rgb a11y-hidden">rgb(184, 60, 143)</span>
         <div class="wrapper">
           <span class="display-round">Round: 1</span>
           <span class="display-score">Score: 0</span>
@@ -57,12 +72,15 @@
 
     <section class="card-memory-game hidden">
       <!-- <h1>Level <span class="gameLevel">1</span></h1> -->
+      <h2>Lifes : <span class="userLife"></span></h2>
       <div class="elapsedTime">00:00:00</div>
       <section class="cardSection"></section>
     </section>
 
-    <footer class="footer"></footer>
-    <script type="module" src="js/js_park.mjs"></script>
+    <footer class="footer">
+      <button type="button" class="restart">Restart</button>
+    </footer>
+    <!-- <script type="module" src="js/main.mjs"></script> -->
     <script src="js/cardFlip.js "></script>
     <script src="js/minesweeper.js"></script>
   </body>

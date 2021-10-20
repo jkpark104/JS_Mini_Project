@@ -17,6 +17,30 @@ body {
   margin: -1px;
 }
 
+.hidden {
+  display: none !important;
+}
+
+.game-mode {
+  z-index: 1;
+}
+
+.game-mode-button {
+  color: inherit;
+  font-size: 0.6em;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0.125rem solid #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  transition: all 0.4s ease;
+}
+
+.game-mode-button:hover,
+.game-mode-button.current-mode {
+  color: steelblue;
+  background-color: white;
+}
 .navigation {
   display: flex;
   position: relative;
@@ -24,14 +48,12 @@ body {
   font-size: 1.5rem;
   color: #fff;
   background: steelblue;
-
-  /* margin-bottom: 1.5rem; */
 }
 
 @media screen and (min-width: 800px) {
   .navigation {
     justify-content: space-between;
-    min-height: 4rem;
+    min-height: 3.5rem;
     padding: 0 3rem 0;
   }
 }
@@ -43,21 +65,6 @@ body {
     min-height: 5rem;
     gap: 0.5rem;
   }
-}
-
-.restart {
-  z-index: 1;
-  color: inherit;
-  font-size: inherit;
-  cursor: pointer;
-  background-color: transparent;
-  border: 0.125rem solid #fff;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-}
-
-.restart:hover {
-  transform: scale(1.05);
 }
 
 @media screen and (max-width: 799px) {
@@ -82,11 +89,30 @@ body {
 }
 
 .footer {
+  position: relative;
   width: 100%;
-  height: 3rem;
+  min-height: 3.5rem;
   background: steelblue;
 }
 
-.hidden {
-  display: none !important;
+.restart {
+  position: absolute;
+  right: 0;
+  color: #fff;
+  font-size: inherit;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0.125rem solid #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  height: 2.5rem;
+  margin: auto;
+  margin-right: 3rem;
+  top: 0;
+  bottom: 0;
+}
+
+.restart:hover {
+  color: steelblue;
+  background-color: white;
 }
