@@ -3,13 +3,6 @@ import { getState, setState } from './state.mjs';
 // closer
 const minesweeperGame = (() => {
   // constant
-  const CLASS_NAME = {
-    '-1': 'nomal',
-    '-2': 'flag',
-    '-3': 'mine',
-    '-4': 'flag',
-    0: 'opened'
-  };
   const SQUARE = {
     NOMAL: -1,
     FLAG: -2,
@@ -17,10 +10,17 @@ const minesweeperGame = (() => {
     FLAG_MINE: -4,
     OPENED: 0
   };
+  const CLASS_NAME = {
+    '-1': 'nomal',
+    '-2': 'flag',
+    '-3': 'mine',
+    '-4': 'flag',
+    0: 'opened'
+  };
   const MODE = {
     EASY: { ROW: 10, COL: 10, MINE_NUM: 15 },
-    NOMAL: { ROW: 20, COL: 20, MINE_NUM: 80 },
-    HARD: { ROW: 25, COL: 25, MINE_NUM: 180 }
+    NOMAL: { ROW: 20, COL: 20, MINE_NUM: 70 },
+    HARD: { ROW: 25, COL: 25, MINE_NUM: 150 }
   };
 
   // state
@@ -284,9 +284,7 @@ const minesweeperGame = (() => {
     },
     changeMode(mode) {
       const codeMode = mode.toUpperCase();
-      ROW = MODE[codeMode].ROW;
-      COL = MODE[codeMode].COL;
-      MINE_NUM = MODE[codeMode].MINE_NUM;
+      ({ ROW, COL, MINE_NUM } = MODE[codeMode]);
     }
   };
 })();
