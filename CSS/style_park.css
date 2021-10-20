@@ -1,5 +1,5 @@
 .color-game {
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .color-palette {
@@ -25,13 +25,21 @@
   align-items: center;
 }
 
+.palette-item:hover {
+  transform: scale(1.03);
+}
+
 .hint {
   position: absolute;
   top: 6.25rem;
   left: 3.5rem;
+  border: 0;
+  border-radius: 0.5rem;
   font-size: 1.5rem;
   background-color: #d9534f;
   color: #fff;
+  border: 0.125rem solid #fff;
+  border-radius: 0.5rem;
 }
 
 .hint:hover {
