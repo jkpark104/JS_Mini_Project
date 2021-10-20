@@ -23,18 +23,20 @@ const minesweeperGame = (() => {
     HARD: { ROW: 25, COL: 25, MINE_NUM: 150 }
   };
 
-  // state
+  // state ----------------------------------------
   let { ROW, COL, MINE_NUM } = MODE.NOMAL;
 
+  // 플레이어의 상태를 저장
   let gameBoard = Array(ROW)
     .fill()
     .map(() => Array(COL).fill(SQUARE.NOMAL));
 
+  // 지뢰 정보를 저장
   let mineInfoBoard = Array(ROW)
     .fill()
     .map(() => Array(COL).fill(0));
 
-  // functions
+  // functions ----------------------------------------
   const createBoard = filling =>
     Array(ROW)
       .fill()
@@ -55,11 +57,13 @@ const minesweeperGame = (() => {
       ).textContent = `${key.toUpperCase()} ${value}`;
     });
   };
+
   const popupResult = isWin => {
     alert(isWin ? '승리하셨습니다!' : '실패하셨습니다...');
     setRoundScore(isWin);
     minesweeperGame.renderNewGame();
   };
+
   const setStyleGameBoard = () => {
     document.documentElement.style.setProperty('--row', ROW);
     document.documentElement.style.setProperty(
@@ -67,6 +71,7 @@ const minesweeperGame = (() => {
       100 / ROW + '%'
     );
   };
+
   const createMine = () => {
     const mines = Array.from({ length: MINE_NUM }, () =>
       Math.floor(Math.random() * (ROW * COL))
@@ -101,14 +106,19 @@ const minesweeperGame = (() => {
       // 주변 지뢰 개수 심기
       dxDy.forEach(([dx, dy]) => {
         const [nextX, nextY] = [row + dx, col + dy];
-        if (nextX < 0 || nextX >= ROW || nextY < 0 || nextY >= COL) return;
-        if (mineInfoBoard[nextX][nextY] !== SQUARE.MINE)
+        if (
+          nextX >= 0 &&
+          nextX < ROW &&
+          nextY >= 0 &&
+          nextY < COL &&
+          mineInfoBoard[nextX][nextY] !== SQUARE.MINE
+        )
           mineInfoBoard[nextX][nextY] += 1;
       });
     });
   };
 
-  const plantMine = () => {
+  const plantMineInGameBoard = () => {
     const mines = createMine();
     mines.forEach(position => {
       const row = Math.floor(position / ROW);
@@ -126,6 +136,7 @@ const minesweeperGame = (() => {
 
     setStyleGameBoard();
     $minesweeperBoard.innerHTML = '';
+    const $fragment = document.createDocumentFragment();
 
     gameBoard.forEach((boardLine, i) => {
       const $boardLine = document.createElement('div');
@@ -138,8 +149,9 @@ const minesweeperGame = (() => {
         $square.className = `col col${i}`;
         $boardLine.append($square);
       });
-      $minesweeperBoard.append($boardLine);
+      $fragment.append($boardLine);
     });
+    $minesweeperBoard.append($fragment);
   };
 
   const openBoard = (row, col, visited) => {
@@ -224,7 +236,7 @@ const minesweeperGame = (() => {
     renderNewGame() {
       gameBoard = createBoard(SQUARE.NOMAL);
       mineInfoBoard = createBoard(0);
-      plantMine();
+      plantMineInGameBoard();
       renderGameBoard();
     },
     handleRightClick(userSelected) {
