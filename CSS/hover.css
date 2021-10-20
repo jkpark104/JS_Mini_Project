@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Raleway', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #e1fbff;
+}
+
+.game-list {
+  display: flex;
+  margin-top: 30px;
+}
+
+.game-container {
+  width: 400px;
+  height: 400px;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px -5px #ccc;
+  margin: 0 30px;
+
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.game-container:hover {
+  transform: rotateY(180deg);
+}
+
+.game-gif,
+.game-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  pointer-events: none;
+  border-radius: 10px;
+}
+
+.game-back {
+  background-color: #4682b4;
+  backface-visibility: hidden;
+}
+
+.mine {
+  background-image: url(../images/minesweeper.gif);
+  background-size: cover;
+  background-position-x: center;
+  transform: rotateY(-180deg);
+}
+
+.mine:hover {
+  background-image: url(../images/minesweeper.gif);
+}
+
+.color {
+  background-image: url(../images/card_ani.gif);
+  background-size: cover;
+  background-position-x: center;
+  transform: rotateY(-180deg);
+}
+
+.color:hover {
+  background-image: url(../images/card_ani.gif);
+  transform: rotateY(180deg);
+}
+
+.card {
+  background-image: url(../images/card_ani.gif);
+  background-size: cover;
+  background-position-x: center;
+  transform: rotateY(-180deg);
+}
+
+.card:hover {
+  background-image: url(../images/card_ani.gif);
+  transform: rotateY(180deg);
+}
+
+h1 {
+  font-size: 5em;
+  color: #085863;
+  margin-top: 50px;
+}
