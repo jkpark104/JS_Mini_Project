@@ -26,7 +26,22 @@
     <header class="header">
       <h1 class="title a11y-hidden">Mini Game</h1>
       <nav class="navigation">
-        <button type="button" class="restart">Restart</button>
+        <div class="game-mode">
+          <button type="button" class="game-mode-button" data-mode="easy">
+            EASY
+          </button>
+          <button
+            type="button"
+            class="game-mode-button current-mode"
+            data-mode="nomal"
+          >
+            NOMAL
+          </button>
+          <button type="button" class="game-mode-button" data-mode="hard">
+            HARD
+          </button>
+        </div>
+        <!-- <button type="button" class="restart">Restart</button> -->
         <h2 class="display display-title">Mine Sweeper</h2>
         <span class="display display-rgb a11y-hidden">rgb(184, 60, 143)</span>
         <div class="wrapper">
@@ -61,7 +76,9 @@
       <section class="cardSection"></section>
     </section>
 
-    <footer class="footer"></footer>
+    <footer class="footer">
+      <button type="button" class="restart">Restart</button>
+    </footer>
     <!-- <script type="module" src="js/main.mjs"></script> -->
     <script src="js/cardFlip.js "></script>
     <script src="js/minesweeper.js"></script>
