@@ -3,12 +3,11 @@ import { getState, setState } from './state.mjs';
 // closer
 const minesweeperGame = (() => {
   // constant
-  const CLASS_NAME = {
-    '-1': 'nomal',
-    '-2': 'flag',
-    '-3': 'mine',
-    '-4': 'flag',
-    0: 'opened'
+  const SOUND = {
+    leftClk: '../music/leftClickSound.mp3',
+    rightClk: '../music/rightClickSound.mp3',
+    win: '../music/winSound.mp3',
+    lose: '../music/loseSound.mp3'
   };
   const SQUARE = {
     NOMAL: -1,
@@ -17,24 +16,33 @@ const minesweeperGame = (() => {
     FLAG_MINE: -4,
     OPENED: 0
   };
+  const CLASS_NAME = {
+    '-1': 'nomal',
+    '-2': 'flag',
+    '-3': 'mine',
+    '-4': 'flag',
+    0: 'opened'
+  };
   const MODE = {
-    EASY: { ROW: 10, COL: 10, MINE_NUM: 15 },
-    NOMAL: { ROW: 20, COL: 20, MINE_NUM: 80 },
-    HARD: { ROW: 25, COL: 25, MINE_NUM: 180 }
+    EASY: { ROW: 10, COL: 10, MINE_NUM: 10 },
+    NOMAL: { ROW: 20, COL: 20, MINE_NUM: 60 },
+    HARD: { ROW: 25, COL: 25, MINE_NUM: 140 }
   };
 
-  // state
+  // state ----------------------------------------
   let { ROW, COL, MINE_NUM } = MODE.NOMAL;
 
+  // 플레이어의 상태를 저장
   let gameBoard = Array(ROW)
     .fill()
     .map(() => Array(COL).fill(SQUARE.NOMAL));
 
+  // 지뢰 정보를 저장
   let mineInfoBoard = Array(ROW)
     .fill()
     .map(() => Array(COL).fill(0));
 
-  // functions
+  // functions ----------------------------------------
   const createBoard = filling =>
     Array(ROW)
       .fill()
@@ -55,11 +63,13 @@ const minesweeperGame = (() => {
       ).textContent = `${key.toUpperCase()} ${value}`;
     });
   };
+
   const popupResult = isWin => {
     alert(isWin ? '승리하셨습니다!' : '실패하셨습니다...');
     setRoundScore(isWin);
     minesweeperGame.renderNewGame();
   };
+
   const setStyleGameBoard = () => {
     document.documentElement.style.setProperty('--row', ROW);
     document.documentElement.style.setProperty(
@@ -67,6 +77,7 @@ const minesweeperGame = (() => {
       100 / ROW + '%'
     );
   };
+
   const createMine = () => {
     const mines = Array.from({ length: MINE_NUM }, () =>
       Math.floor(Math.random() * (ROW * COL))
@@ -101,14 +112,19 @@ const minesweeperGame = (() => {
       // 주변 지뢰 개수 심기
       dxDy.forEach(([dx, dy]) => {
         const [nextX, nextY] = [row + dx, col + dy];
-        if (nextX < 0 || nextX >= ROW || nextY < 0 || nextY >= COL) return;
-        if (mineInfoBoard[nextX][nextY] !== SQUARE.MINE)
+        if (
+          nextX >= 0 &&
+          nextX < ROW &&
+          nextY >= 0 &&
+          nextY < COL &&
+          mineInfoBoard[nextX][nextY] !== SQUARE.MINE
+        )
           mineInfoBoard[nextX][nextY] += 1;
       });
     });
   };
 
-  const plantMine = () => {
+  const plantMineInGameBoard = () => {
     const mines = createMine();
     mines.forEach(position => {
       const row = Math.floor(position / ROW);
@@ -124,22 +140,26 @@ const minesweeperGame = (() => {
   const renderGameBoard = () => {
     const $minesweeperBoard = document.querySelector('.minesweeper-board');
 
+    document.querySelector('.minesweeper-board').classList.remove('win');
+
     setStyleGameBoard();
     $minesweeperBoard.innerHTML = '';
+    const $fragment = document.createDocumentFragment();
 
-    gameBoard.forEach((boardLine, i) => {
-      const $boardLine = document.createElement('div');
-      $boardLine.className = `row row${i}`;
-      $boardLine.dataset.row = i;
+    gameBoard.forEach((boardLine, x) => {
+      const $row = document.createElement('div');
+      $row.className = `row row${x}`;
+      $row.dataset.row = x;
 
-      boardLine.forEach((square, i) => {
-        const $square = document.createElement('div');
-        $square.dataset.col = i;
-        $square.className = `col col${i}`;
-        $boardLine.append($square);
+      boardLine.forEach((_, y) => {
+        const $col = document.createElement('div');
+        $col.dataset.col = y;
+        $col.className = `col col${y}`;
+        $row.append($col);
       });
-      $minesweeperBoard.append($boardLine);
+      $fragment.append($row);
     });
+    $minesweeperBoard.append($fragment);
   };
 
   const openBoard = (row, col, visited) => {
@@ -205,31 +225,76 @@ const minesweeperGame = (() => {
   const showAllGameBoard = () => {
     const $minesweeperBoard = document.querySelector('.minesweeper-board');
 
-    mineInfoBoard.forEach((boardLine, i) => {
-      const $row = $minesweeperBoard.querySelector('.row' + i);
-      boardLine.forEach((square, i) => {
-        const $col = $row.querySelector('.col' + i);
+    $minesweeperBoard.innerHTML = '';
+    const $fragment = document.createDocumentFragment();
 
-        if (square === SQUARE.MINE || square === SQUARE.FLAG_MINE) {
-          $col.classList.add('bomb');
-          $col.innerHTML = `<i class="fas fa-bomb"></i>`;
-        } else {
-          $col.innerHTML = square;
-        }
+    mineInfoBoard.forEach((boardLine, x) => {
+      const $row = document.createElement('div');
+      $row.className = `row row${x}`;
+      $row.dataset.row = x;
+
+      boardLine.forEach((box, y) => {
+        const $col = document.createElement('div');
+        $col.dataset.col = y;
+        $col.className = `col col${y}`;
+
+        // $col.innerHTML = box;
+        // if (
+        //   gameBoard[x][y] === SQUARE.MINE ||
+        //   gameBoard[x][y] === SQUARE.FLAG_MINE
+        // ) {
+        //   $col.classList.add(CLASS_NAME[SQUARE.MINE]);
+        //   $col.innerHTML = `<i class="fas fa-bomb"></i>`;
+        // }
+        // if (gameBoard[x][y] === SQUARE.FLAG) {
+        //   $col.classList.add(CLASS_NAME[SQUARE.FLAG]);
+        // }
+        // if (gameBoard[x][y] >= SQUARE.OPENED) {
+        //   $col.classList.add(CLASS_NAME[SQUARE.OPENED]);
+        // }
+
+        const isValid = CODE =>
+          CODE >= 0 ? gameBoard[x][y] >= CODE : gameBoard[x][y] === CODE;
+
+        $col.innerHTML =
+          isValid(SQUARE.MINE) || isValid(SQUARE.FLAG_MINE)
+            ? `<i class="fas fa-bomb"></i>`
+            : box || '';
+
+        $col.classList.toggle(
+          CLASS_NAME[SQUARE.MINE],
+          isValid(SQUARE.MINE) || isValid(SQUARE.FLAG_MINE)
+        );
+        $col.classList.toggle(CLASS_NAME[SQUARE.FLAG], isValid(SQUARE.FLAG));
+        $col.classList.toggle(
+          CLASS_NAME[SQUARE.OPENED],
+          isValid(SQUARE.OPENED)
+        );
+
+        $row.append($col);
       });
+      $fragment.append($row);
     });
+    $minesweeperBoard.append($fragment);
+  };
+
+  const playSound = mode => {
+    new Audio(SOUND[mode]).play();
   };
 
   return {
     renderNewGame() {
       gameBoard = createBoard(SQUARE.NOMAL);
       mineInfoBoard = createBoard(0);
-      plantMine();
+      plantMineInGameBoard();
       renderGameBoard();
     },
     handleRightClick(userSelected) {
       const { row } = userSelected.parentNode.dataset;
       const { col } = userSelected.dataset;
+
+      // 우클릭 소리
+      playSound('rightClk');
 
       // 깃발이였다면? 깃발 제거
       if (
@@ -244,7 +309,9 @@ const minesweeperGame = (() => {
       }
       // 깃발이 아니였다면?
       // 열린칸이면? 대기
-      if (gameBoard[row][col] >= 0) return;
+      if (gameBoard[row][col] >= SQUARE.OPENED) {
+        return;
+      }
 
       // 닫힌칸이면? 깃발 꽂기
       gameBoard[row][col] =
@@ -255,6 +322,9 @@ const minesweeperGame = (() => {
     handleLeftClick(userSelected) {
       const { row } = userSelected.parentNode.dataset;
       const { col } = userSelected.dataset;
+
+      // 좌클릭 소리
+      playSound('leftClk');
 
       // 깃발인 경우
       if (
@@ -268,6 +338,7 @@ const minesweeperGame = (() => {
       // 지뢰인 경우 => 패배
       if (gameBoard[row][col] === SQUARE.MINE) {
         showAllGameBoard();
+        playSound('lose');
         setTimeout(popupResult, 100, false);
         return;
       }
@@ -279,14 +350,14 @@ const minesweeperGame = (() => {
       // 지뢰 빼고 전부 열었을 경우 => 승리
       if (isAllMinesFined()) {
         showAllGameBoard();
+        document.querySelector('.minesweeper-board').classList.add('win');
+        playSound('win');
         setTimeout(popupResult, 1000, true);
       }
     },
     changeMode(mode) {
       const codeMode = mode.toUpperCase();
-      ROW = MODE[codeMode].ROW;
-      COL = MODE[codeMode].COL;
-      MINE_NUM = MODE[codeMode].MINE_NUM;
+      ({ ROW, COL, MINE_NUM } = MODE[codeMode]);
     }
   };
 })();
