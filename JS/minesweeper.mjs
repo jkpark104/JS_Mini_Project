@@ -1,3 +1,5 @@
+import { getState, setState } from './state.mjs';
+
 // closer
 const minesweeperGame = (() => {
   // constant
@@ -37,9 +39,25 @@ const minesweeperGame = (() => {
     Array(ROW)
       .fill()
       .map(() => Array(COL).fill(filling));
+  const setRoundScore = isWin => {
+    let { score, round } = getState();
 
+    setState({
+      score: (score += isWin ? 100 : -100),
+      round: (round += 1)
+    });
+
+    Object.entries({
+      ...getState()
+    }).forEach(([key, value]) => {
+      document.querySelector(
+        `.display-${key}`
+      ).textContent = `${key.toUpperCase()} ${value}`;
+    });
+  };
   const popupResult = isWin => {
     alert(isWin ? '승리하셨습니다!' : '실패하셨습니다...');
+    setRoundScore(isWin);
     minesweeperGame.renderNewGame();
   };
   const setStyleGameBoard = () => {
@@ -247,7 +265,7 @@ const minesweeperGame = (() => {
       }
 
       // 깃발이 아닐때
-      // 지뢰인 경우
+      // 지뢰인 경우 => 패배
       if (gameBoard[row][col] === SQUARE.MINE) {
         showAllGameBoard();
         setTimeout(popupResult, 100, false);
@@ -258,7 +276,7 @@ const minesweeperGame = (() => {
       const visited = Array.from({ length: ROW }, () => Array(COL).fill(0));
       openBoard(row, col, visited);
 
-      // 지뢰 빼고 전부 열었을 경우
+      // 지뢰 빼고 전부 열었을 경우 => 승리
       if (isAllMinesFined()) {
         showAllGameBoard();
         setTimeout(popupResult, 1000, true);
