@@ -1,92 +1,93 @@
-const colorGames = (() => {
-  const state = {
-    score: 0,
+// const colorGames = (() => {
+//   const answer = null;
 
-    round: 1,
+//   const $hintList = document.querySelector('.hint-list');
 
-    answer: null
-  };
+//   const generateRGBValues = () => {
+//     const R = Math.floor(Math.random() * 256);
+//     const G = Math.floor(Math.random() * 256);
+//     const B = Math.floor(Math.random() * 256);
 
-  const $hintList = document.querySelector('.hint-list');
+//     return [R, G, B];
+//   };
 
-  const generateRGBValues = () => {
-    const R = Math.floor(Math.random() * 256);
-    const G = Math.floor(Math.random() * 256);
-    const B = Math.floor(Math.random() * 256);
+//   const isAnswer = value =>
+//     value.style.backgroundColor.match(/[0-9]+/g).join('') ===
+//     state.answer.join('');
 
-    return [R, G, B];
-  };
+//   return {
+//     renderPallette() {
+//       const colorGroups = Array.from({ length: 4 }, () => generateRGBValues());
+//       state.answer = colorGroups[Math.floor(Math.random() * 4)];
 
-  const isAnswer = value =>
-    value.style.backgroundColor.match(/[0-9]+/g).join('') ===
-    state.answer.join('');
+//       [...document.querySelectorAll('.palette-item')].forEach(
+//         ({ style }, index) => {
+//           style.setProperty('background-color', `rgb(${colorGroups[index]})`);
+//         }
+//       );
 
-  return {
-    renderPallette() {
-      const colorGroups = Array.from({ length: 4 }, () => generateRGBValues());
-      state.answer = colorGroups[Math.floor(Math.random() * 4)];
+//       Object.entries({
+//         rgb: `(${state.answer.join(', ')})`,
+//         round: state.round,
+//         score: state.score
+//       }).forEach(([key, value]) => {
+//         document.querySelector(
+//           `.display-${key}`
+//         ).textContent = `${key.toUpperCase()} ${value}`;
+//       });
 
-      [...document.querySelectorAll('.palette-item')].forEach(
-        ({ style }, index) => {
-          style.setProperty('background-color', `rgb(${colorGroups[index]})`);
-        }
-      );
+//       $hintList.classList.remove('active');
+//       $hintList.style.height = 0;
+//     },
 
-      Object.entries({
-        rgb: `(${state.answer.join(', ')})`,
-        round: state.round,
-        score: state.score
-      }).forEach(([key, value]) => {
-        document.querySelector(
-          `.display-${key}`
-        ).textContent = `${key.toUpperCase()} ${value}`;
-      });
+//     updateState(eventTarget) {
+//       state.score += isAnswer(eventTarget) ? 100 : -100;
+//       state.round += 1;
 
-      $hintList.classList.remove('active');
-      $hintList.style.height = 0;
-    },
+//       const duration = isAnswer(eventTarget) ? 2000 : 400;
 
-    updateState(eventTarget) {
-      state.score += isAnswer(eventTarget) ? 100 : -100;
-      state.round += 1;
+//       if (isAnswer(eventTarget)) {
+//         eventTarget.style.setProperty('transition', 'none');
+//         icon.create(eventTarget);
+//       } else {
+//         eventTarget.classList.add('active');
+//       }
 
-      eventTarget.classList.add('active');
+//       setTimeout(() => {
+//         eventTarget.classList.remove('active');
+//         colorGames.renderPallette();
+//       }, duration);
+//     },
 
-      setTimeout(() => {
-        eventTarget.classList.remove('active');
-        colorGames.renderPallette();
-      }, 400);
-    },
+//     toggleHint() {
+//       [...document.querySelectorAll('.hint-item')].forEach((item, index) => {
+//         item.textContent = `RGB (${state.answer
+//           .map((value, i) => (index === i ? 0 : value))
+//           .join(', ')})`;
 
-    toggleHint() {
-      [...document.querySelectorAll('.hint-item')].forEach((item, index) => {
-        item.textContent = `RGB (${state.answer
-          .map((value, i) => (index === i ? 0 : value))
-          .join(', ')})`;
+//         item.style.setProperty(
+//           'background-color',
+//           `rgb(${state.answer.map((value, i) => (index === i ? 0 : value))})`
+//         );
+//       });
 
-        item.style.setProperty(
-          'background-color',
-          `rgb(${state.answer.map((value, i) => (index === i ? 0 : value))})`
-        );
-      });
+//       $hintList.classList.toggle('active');
 
-      $hintList.classList.toggle('active');
+//       $hintList.classList.contains('active')
+//         ? ($hintList.style.height = $hintList.scrollHeight + 'px')
+//         : ($hintList.style.height = 0);
+//     }
+//   };
+// })();
 
-      $hintList.classList.contains('active')
-        ? ($hintList.style.height = $hintList.scrollHeight + 'px')
-        : ($hintList.style.height = 0);
-    }
-  };
-})();
+// window.addEventListener('DOMContentLoaded', colorGames.renderPallette);
 
-window.addEventListener('DOMContentLoaded', colorGames.renderPallette);
+// document.querySelector('.restart').onclick = colorGames.renderPallette;
 
-document.querySelector('.restart').onclick = colorGames.renderPallette;
+// document.querySelector('.color-palette').onclick = e => {
+//   if (!e.target.matches('.palette-item')) return;
 
-document.querySelector('.color-palette').onclick = e => {
-  if (!e.target.matches('.palette-item')) return;
+//   colorGames.updateState(e.target);
+// };
 
-  colorGames.updateState(e.target);
-};
-
-document.querySelector('.hint').onclick = colorGames.toggleHint;
+// document.querySelector('.hint').onclick = colorGames.toggleHint;
