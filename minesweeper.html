@@ -5,8 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,16 +18,45 @@
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/minesweeper.css" />
     <title>Mine Sweeper</title>
   </head>
   <body>
-    <div class="minesweeper-wrap">
-      <h1 class="minesweeper-title">Mine Sweeper</h1>
-      <div class="minesweeper-board"></div>
-    </div>
+    <header class="header">
+      <h1 class="title a11y-hidden">Mini Game</h1>
+      <nav class="navigation">
+        <div class="game-mode">
+          <button type="button" class="game-mode-button" data-mode="easy">
+            EASY
+          </button>
+          <button
+            type="button"
+            class="game-mode-button current-mode"
+            data-mode="nomal"
+          >
+            NOMAL
+          </button>
+          <button type="button" class="game-mode-button" data-mode="hard">
+            HARD
+          </button>
+        </div>
+        <h2 class="display display-title">
+          <i class="fas fa-bomb"></i> Mine Sweeper <i class="fas fa-bomb"></i>
+        </h2>
+        <div class="wrapper">
+          <span class="display-round">Round: 1</span>
+          <span class="display-score">Score: 0</span>
+        </div>
+      </nav>
+    </header>
 
-    <div class="modal-wrap hidden">
+    <section class="minesweeper-wrap">
+      <div class="minesweeper-board"></div>
+    </section>
+
+    <!-- <div class="modal-wrap hidden">
       <div class="modal">
         <h2 class="title">승리/실패</h2>
         <p class="modal-content">
@@ -37,8 +69,10 @@
 
         <button class="modal-close"><i class="bx bx-x"></i></button>
       </div>
-    </div>
-
-    <script src="js/minesweeper.js"></script>
+    </div> -->
+    <footer class="footer">
+      <button type="button" class="restart">Restart</button>
+    </footer>
+    <script type="module" src="js/minesweeper.mjs"></script>
   </body>
 </html>
