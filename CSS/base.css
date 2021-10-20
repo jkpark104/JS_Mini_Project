@@ -16,7 +16,24 @@ body {
   height: 1px;
   margin: -1px;
 }
-
+.game-mode {
+  z-index: 1;
+}
+.game-mode-button {
+  color: inherit;
+  font-size: 0.6em;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0.125rem solid #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  transition: all 0.4s ease;
+}
+.game-mode-button:hover,
+.game-mode-button.current-mode {
+  color: steelblue;
+  background-color: white;
+}
 .navigation {
   display: flex;
   position: relative;
@@ -24,8 +41,6 @@ body {
   font-size: 1.5rem;
   color: #fff;
   background: steelblue;
-
-  /* margin-bottom: 1.5rem; */
 }
 
 @media screen and (min-width: 800px) {
