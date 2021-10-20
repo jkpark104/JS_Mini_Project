@@ -52,6 +52,10 @@ body {
   padding: 0.5rem;
 }
 
+.restart:hover {
+  transform: scale(1.05);
+}
+
 @media screen and (max-width: 799px) {
   .restart {
     order: 1;
