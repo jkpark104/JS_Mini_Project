@@ -1,6 +1,7 @@
 // functions
 const popupResult = isWin => {
-  document.querySelector('.modal-wrap').classList.remove('hidden');
+  alert(isWin ? '승리하셨습니다!' : '실패하셨습니다...');
+  minesweeperGame.renderNewGame();
 };
 
 // closer
@@ -100,7 +101,11 @@ const minesweeperGame = (() => {
   };
 
   const renderGameBoard = () => {
+    const $minesweeperBoard = document.querySelector('.minesweeper-board');
+
     setStyleGameBoard();
+    $minesweeperBoard.innerHTML = '';
+
     gameBoard.forEach((boardLine, i) => {
       const $boardLine = document.createElement('div');
       $boardLine.className = `row row${i}`;
@@ -112,7 +117,7 @@ const minesweeperGame = (() => {
         $square.className = `col col${i}`;
         $boardLine.append($square);
       });
-      document.querySelector('.minesweeper-board').append($boardLine);
+      $minesweeperBoard.append($boardLine);
     });
   };
 
