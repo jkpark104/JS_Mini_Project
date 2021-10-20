@@ -232,7 +232,7 @@ const minesweeperGame = (() => {
       gameBoard[row][col] =
         gameBoard[row][col] === SQUARE.NOMAL ? SQUARE.FLAG : SQUARE.FLAG_MINE;
       userSelected.classList.add(CLASS_NAME[SQUARE.FLAG]);
-      userSelected.innerHTML = `<i class='bx bxs-flag' ></i>`;
+      userSelected.innerHTML = `<i class="fas fa-flag"></i>`;
     },
     handleLeftClick(userSelected) {
       const { row } = userSelected.parentNode.dataset;
@@ -300,3 +300,6 @@ document.querySelector('.game-mode').onclick = e => {
 
   minesweeperGame.renderNewGame();
 };
+
+// 초기화 버튼 선택
+document.querySelector('.restart').onclick = minesweeperGame.renderNewGame;
