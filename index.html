@@ -42,8 +42,8 @@
           </button>
         </div>
         <!-- <button type="button" class="restart">Restart</button> -->
-        <h2 class="display display-title">Mine Sweeper</h2>
-        <span class="display display-rgb a11y-hidden">rgb(184, 60, 143)</span>
+        <h2 class="display display-title a11y-hidden">Mine Sweeper</h2>
+        <span class="display display-rgb">rgb(184, 60, 143)</span>
         <div class="wrapper">
           <span class="display-round">Round: 1</span>
           <span class="display-score">Score: 0</span>
@@ -51,7 +51,7 @@
       </nav>
     </header>
 
-    <section class="minesweeper-wrap">
+    <section class="minesweeper-wrap hidden">
       <div class="minesweeper-board"></div>
     </section>
 
@@ -78,9 +78,10 @@
     </section>
 
     <footer class="footer">
+      <button type="button" class="home">HOME</button>
       <button type="button" class="restart">Restart</button>
     </footer>
-    <!-- <script type="module" src="js/main.mjs"></script> -->
+    <script type="module" src="js/js_park.mjs"></script>
     <script src="js/cardFlip.js "></script>
     <script src="js/minesweeper.js"></script>
   </body>
