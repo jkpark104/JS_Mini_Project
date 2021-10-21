@@ -1,6 +1,73 @@
 :root {
   --main-color: #4682b4;
+  --black: rgb(23, 23, 23);
   --font-color: rgb(77, 77, 77);
+}
+
+@media screen and (max-width: 799px) {
+  body {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    font-size: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .game-list {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+
+    background: linear-gradient(
+        20deg,
+        var(--main-color) 40%,
+        rgba(0, 0, 0, 0) 33%
+      ),
+      linear-gradient(20deg, var(--main-color) 34%, #fff 34%);
+  }
+
+  .game-container {
+    margin: 30px 0;
+    width: 300px;
+    height: 300px;
+  }
+
+  .game-name {
+    background: linear-gradient(
+        10deg,
+        var(--main-color) 40%,
+        rgba(0, 0, 0, 0) 33%
+      ),
+      linear-gradient(10deg, var(--main-color) 34%, #fff 34%);
+  }
+  .effect {
+    font-size: 3rem;
+  }
+}
+@media screen and (min-width: 800px) {
+  body {
+    justify-content: center;
+    height: 100vh;
+  }
+  .game-list {
+    padding: 4em;
+    background: linear-gradient(
+        110deg,
+        var(--main-color) 40%,
+        rgba(0, 0, 0, 0) 33%
+      ),
+      linear-gradient(110deg, var(--main-color) 34%, #fff 34%);
+  }
+  .game-name {
+    background: linear-gradient(
+        110deg,
+        var(--main-color) 33%,
+        rgba(0, 0, 0, 0) 33%
+      ),
+      linear-gradient(110deg, var(--main-color) 34%, #fff 34%);
+  }
 }
 
 body {
@@ -8,19 +75,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-@media screen and (max-width: 799px) {
-  body {
-    padding: 3rem 0;
-  }
-}
-
-@media screen and (min-width: 800px) {
-  body {
-    justify-content: center;
-    height: 100vh;
-  }
 }
 
 .container {
@@ -36,53 +90,43 @@ body {
   letter-spacing: 0.1em;
 }
 
-@media screen and (max-width: 799px) {
-  .effect {
-    font-size: 3rem;
-  }
-}
-
 .game-list {
   display: flex;
   justify-content: center;
   margin-top: 30px;
-  gap: 0.1em;
+  gap: 1rem;
   font-size: 0.85em;
-}
+  width: 100vw;
+  box-sizing: border-box;
 
-@media screen and (max-width: 799px) {
-  .game-list {
-    flex-direction: column;
-    gap: 2em;
-  }
+  background-size: 400%;
+  animation: Gradient 2s ease infinite;
+  -webkit-animation: Gradient 5s ease infinite;
+  -moz-animation: Gradient 5s ease infinite;
 }
 
 .game-container {
   text-align: center;
-  width: 340px;
-  height: 340px;
+  width: 300px;
+  height: 300px;
   cursor: pointer;
   border-radius: 10px;
-  box-shadow: 0 10px 20px -5px #ccc;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.469);
   margin: 0 30px;
 
   position: relative;
   transform-style: preserve-3d;
   transition: all 1s ease;
 
-  background: linear-gradient(110deg, #ffeead 33%, rgba(0, 0, 0, 0) 33%),
-    linear-gradient(110deg, #c5e7d7 34%, #88d8b0 34%);
   background-size: 400% 400%;
   background-position: 25% 50%;
   -webkit-animation: Gradient 15s ease infinite;
   -moz-animation: Gradient 5s ease infinite;
-  backface-visibility: hidden;
 }
 
-/* .game-container:hover {
-  transform: rotateY(180deg);
-} */
-
+.game-container:hover .game-name {
+  opacity: 0;
+}
 .game-gif,
 .game-back {
   width: 100%;
@@ -112,20 +156,22 @@ body {
 }
 
 .game-back {
-  background-color: var(--main-color);
+  background-color: var(--black);
+  backface-visibility: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid var(--black);
+  border-radius: 10px;
 }
 
 .game-name {
-  position: relative;
+  transition: all 0.8s ease;
   font-size: 3em;
   text-transform: uppercase;
+  font-weight: 900;
 
-  background: linear-gradient(110deg, #be5814 33%, rgba(0, 0, 0, 0) 33%),
-    linear-gradient(110deg, #93c4ad 34%, #6ac296 34%);
-  /* background-size: 400%; */
+  background-size: 400%;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
 
@@ -136,12 +182,12 @@ body {
 
 @-webkit-keyframes Gradient {
   0% {
-    background-position: 30% 50%;
+    background-position: 50% 50%;
   }
   50% {
-    background-position: 25% 50%;
+    background-position: 20% 50%;
   }
   100% {
-    background-position: 30% 50%;
+    background-position: 50% 50%;
   }
 }

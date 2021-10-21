@@ -1,17 +1,14 @@
 .card-memory-game {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
   font-size: 25px;
-  margin: 70px 0;
+  padding: 1rem;
 }
 
 .game-status {
-  display: flex;
-  margin: 30px 0;
-  position: fixed;
-  top: 60px;
+  padding-bottom: 1rem;
 }
 
 .elapsedTime {
