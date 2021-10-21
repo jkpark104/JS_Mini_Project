@@ -1,6 +1,7 @@
 /* COMMON */
 :root {
   --main-color: #4682b4;
+  --font-color: rgb(77, 77, 77);
 }
 body {
   font-family: 'IBM Plex Sans KR', sans-serif;
@@ -33,7 +34,7 @@ body {
   font-size: 0.6em;
   cursor: pointer;
   background-color: transparent;
-  border: 0.125rem solid #fff;
+  border: 0.125rem solid var(--font-color);
   border-radius: 0.5rem;
   padding: 0.5rem;
   transition: all 0.4s ease;
@@ -42,14 +43,14 @@ body {
 .game-mode-button:hover,
 .game-mode-button.current-mode {
   color: var(--main-color);
-  background-color: white;
+  background-color: var(--font-color);
 }
 .navigation {
   display: flex;
   position: relative;
   align-items: center;
   font-size: 1.5rem;
-  color: #fff;
+  color: var(--font-color);
   background: var(--main-color);
 }
 
@@ -94,11 +95,11 @@ body {
 
 .restart,
 .home {
-  color: #fff;
+  color: var(--font-color);
   font-size: inherit;
   cursor: pointer;
   background-color: transparent;
-  border: 0.125rem solid #fff;
+  border: 0.125rem solid var(--font-color);
   border-radius: 0.5rem;
   padding: 0.5rem;
 }
@@ -106,5 +107,5 @@ body {
 .restart:hover,
 .home:hover {
   color: var(--main-color);
-  background-color: white;
+  background-color: var(--font-color);
 }

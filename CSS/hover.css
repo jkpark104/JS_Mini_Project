@@ -10,7 +10,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #e1fbff;
 }
 
 .game-list {
@@ -70,6 +69,6 @@ body {
 
 h1 {
   font-size: 5em;
-  color: #085863;
+  color: var(--font-color);
   margin-top: 50px;
 }
