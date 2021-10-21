@@ -27,7 +27,7 @@ anime.timeline().add(
 
 [...document.querySelectorAll('.game-list a')].forEach((el, index) => {
   anime.timeline().add({
-    translateY: [-100, 0],
+    [`translate${window.innerWidth <= 800 ? 'X' : 'Y'}`]: [-100, 0],
     targets: el,
     opacity: [0, 1],
     easing: 'easeInOutQuad',

@@ -3,43 +3,24 @@
   --font-color: rgb(77, 77, 77);
 }
 
-@media screen and (max-width: 799px) {
-  body {
-    justify-content: center;
-    align-items: center;
-  }
-
-  .container {
-    font-size: 0.5rem;
-    margin-bottom: 0;
-  }
-
-  .game-list {
-    flex-direction: column;
-    margin-top: 100px;
-
-    /* display: none; */
-  }
-
-  .game-container {
-    margin: 30px 0;
-    width: 300px;
-    height: 300px;
-  }
-}
-
 body {
   font-family: 'IBM Plex Sans KR', sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100vh;
+  align-items: center;
 }
 
-h1 {
-  font-size: 5em;
-  color: var(--font-color);
-  margin-top: 50px;
+@media screen and (max-width: 799px) {
+  body {
+    padding: 3rem 0;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  body {
+    justify-content: center;
+    height: 100vh;
+  }
 }
 
 .container {
@@ -48,18 +29,32 @@ h1 {
 }
 
 .effect {
-  margin: 0;
+  color: var(--font-color);
+  margin-top: 50px;
   font-size: 4rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
+@media screen and (max-width: 799px) {
+  .effect {
+    font-size: 3rem;
+  }
+}
+
 .game-list {
   display: flex;
-  margin-top: 30px;
   justify-content: center;
+  margin-top: 30px;
   gap: 0.1em;
   font-size: 0.85em;
+}
+
+@media screen and (max-width: 799px) {
+  .game-list {
+    flex-direction: column;
+    gap: 2em;
+  }
 }
 
 .game-container {
@@ -81,6 +76,7 @@ h1 {
   background-position: 25% 50%;
   -webkit-animation: Gradient 15s ease infinite;
   -moz-animation: Gradient 5s ease infinite;
+  backface-visibility: hidden;
 }
 
 .game-container:hover {
@@ -96,16 +92,33 @@ h1 {
   border-radius: 10px;
 }
 
+.mine,
+.color,
+.card {
+  background-size: cover;
+  background-position-x: center;
+  transform: scaleX(-1);
+}
+.mine {
+  background-image: url(../images/minesweeper.gif);
+}
+
+.color {
+  background-image: url(../images/card_ani.gif);
+}
+
+.card {
+  background-image: url(../images/card_ani.gif);
+}
+
 .game-back {
   background-color: var(--main-color);
-  backface-visibility: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .game-name {
-  backface-visibility: hidden;
   position: relative;
   font-size: 3em;
   text-transform: uppercase;
@@ -132,23 +145,4 @@ h1 {
   100% {
     background-position: 30% 50%;
   }
-}
-
-.mine,
-.color,
-.card {
-  background-size: cover;
-  background-position-x: center;
-  transform: scaleX(-1);
-}
-.mine {
-  background-image: url(../images/minesweeper.gif);
-}
-
-.color {
-  background-image: url(../images/card_ani.gif);
-}
-
-.card {
-  background-image: url(../images/card_ani.gif);
 }
