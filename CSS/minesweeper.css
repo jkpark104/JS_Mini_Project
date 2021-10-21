@@ -52,7 +52,7 @@
 }
 .opened {
   background-color: var(--main-color);
-  color: white;
+  color: var(--font-size);
   transition: 0.5s all ease;
 }
 .mine {

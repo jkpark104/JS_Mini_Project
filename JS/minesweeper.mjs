@@ -34,14 +34,10 @@ const minesweeperGame = (() => {
   let { ROW, COL, MINE_NUM } = MODE.NOMAL;
 
   // 플레이어의 상태를 저장
-  let gameBoard = Array(ROW)
-    .fill()
-    .map(() => Array(COL).fill(SQUARE.NOMAL));
+  let gameBoard = [];
 
   // 지뢰 정보를 저장
-  let mineInfoBoard = Array(ROW)
-    .fill()
-    .map(() => Array(COL).fill(0));
+  let mineInfoBoard = [];
 
   // functions ----------------------------------------
   const createBoard = filling =>
@@ -170,8 +166,8 @@ const minesweeperGame = (() => {
       .querySelector(`.row${row}`)
       .querySelector(`.col${col}`);
     $squareToOpen.classList.add(CLASS_NAME[SQUARE.OPENED]);
-    gameBoard[row][col] = mineInfoBoard[row][col];
     $squareToOpen.classList.remove(CLASS_NAME[SQUARE.FLAG]);
+    gameBoard[row][col] = mineInfoBoard[row][col];
     $squareToOpen.textContent = mineInfoBoard[row][col]
       ? mineInfoBoard[row][col]
       : '';
@@ -191,6 +187,7 @@ const minesweeperGame = (() => {
         mineInfoBoard[nextX][nextY] === SQUARE.MINE
       ) {
         noMine = false;
+        break;
       }
     }
     if (noMine) {
@@ -265,6 +262,13 @@ const minesweeperGame = (() => {
     new Audio(SOUND[mode]).play();
   };
 
+  const handleGameOver = isWin => {
+    showAllGameBoard();
+    document.querySelector('.minesweeper-board').classList.toggle('win', isWin);
+    playSound(isWin ? 'win' : 'lose');
+    setTimeout(popupResult, 1000, isWin);
+  };
+
   return {
     renderNewGame() {
       gameBoard = createBoard(SQUARE.NOMAL);
@@ -273,6 +277,12 @@ const minesweeperGame = (() => {
       renderGameBoard();
     },
     handleRightClick(userSelected) {
+      if (
+        userSelected.classList.contains('opened') ||
+        userSelected.classList.contains('flag')
+      )
+        return;
+
       const { row } = userSelected.parentNode.dataset;
       const { col } = userSelected.dataset;
 
@@ -290,39 +300,28 @@ const minesweeperGame = (() => {
         userSelected.innerHTML = '';
         return;
       }
-      // 깃발이 아니였다면?
-      // 열린칸이면? 대기
-      if (gameBoard[row][col] >= SQUARE.OPENED) {
-        return;
-      }
-
-      // 닫힌칸이면? 깃발 꽂기
+      // 깃발이 아니였다면? 깃발 꽂기
       gameBoard[row][col] =
         gameBoard[row][col] === SQUARE.NOMAL ? SQUARE.FLAG : SQUARE.FLAG_MINE;
       userSelected.classList.add(CLASS_NAME[SQUARE.FLAG]);
       userSelected.innerHTML = `<i class="fas fa-flag"></i>`;
     },
     handleLeftClick(userSelected) {
+      if (
+        userSelected.classList.contains('opened') ||
+        userSelected.classList.contains('flag')
+      )
+        return;
+
       const { row } = userSelected.parentNode.dataset;
       const { col } = userSelected.dataset;
 
       // 좌클릭 소리
       playSound('leftClk');
 
-      // 깃발인 경우
-      if (
-        gameBoard[row][col] === SQUARE.FLAG ||
-        gameBoard[row][col] === SQUARE.FLAG_MINE
-      ) {
-        return;
-      }
-
-      // 깃발이 아닐때
       // 지뢰인 경우 => 패배
       if (gameBoard[row][col] === SQUARE.MINE) {
-        showAllGameBoard();
-        playSound('lose');
-        setTimeout(popupResult, 100, false);
+        handleGameOver(false);
         return;
       }
 
@@ -332,10 +331,7 @@ const minesweeperGame = (() => {
 
       // 지뢰 빼고 전부 열었을 경우 => 승리
       if (isAllMinesFined()) {
-        showAllGameBoard();
-        document.querySelector('.minesweeper-board').classList.add('win');
-        playSound('win');
-        setTimeout(popupResult, 1000, true);
+        handleGameOver(true);
       }
     },
     changeMode(mode) {
@@ -353,13 +349,16 @@ window.addEventListener('DOMContentLoaded', minesweeperGame.renderNewGame);
 const $minesweeperBoard = document.querySelector('.minesweeper-board');
 $minesweeperBoard.oncontextmenu = e => {
   e.preventDefault();
-  minesweeperGame.handleRightClick(e.target.closest('.col'));
+  const $col = e.target.closest('.col');
+  if (!$col) return;
+  minesweeperGame.handleRightClick($col);
 };
 
 // 좌클릭
 $minesweeperBoard.onclick = e => {
-  if (!e.target.classList.contains('col')) return;
-  minesweeperGame.handleLeftClick(e.target.closest('.col'));
+  const $col = e.target.closest('.col');
+  if (!$col) return;
+  minesweeperGame.handleLeftClick($col);
 };
 
 // 모드 선택
