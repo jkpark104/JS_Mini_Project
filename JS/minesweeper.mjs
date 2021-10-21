@@ -277,11 +277,7 @@ const minesweeperGame = (() => {
       renderGameBoard();
     },
     handleRightClick(userSelected) {
-      if (
-        userSelected.classList.contains('opened') ||
-        userSelected.classList.contains('flag')
-      )
-        return;
+      if (userSelected.classList.contains('opened')) return;
 
       const { row } = userSelected.parentNode.dataset;
       const { col } = userSelected.dataset;
