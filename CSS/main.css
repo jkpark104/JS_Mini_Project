@@ -105,6 +105,7 @@ h1 {
 }
 
 .game-name {
+  backface-visibility: hidden;
   position: relative;
   font-size: 3em;
   text-transform: uppercase;
