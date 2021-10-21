@@ -1,5 +1,4 @@
 const changeMainColor = (() => {
-  // const colors = ['#cdb4db', '#ffc8dd', '#ffafcc', '#bde0fe', '#a2d2ff'];
   const colors = [
     '#f5ffc6',
     '#b4e1ff',

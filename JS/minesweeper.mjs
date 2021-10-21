@@ -3,7 +3,9 @@ import colorInit from './changeMainColor.js';
 
 // closer
 const minesweeperGame = (() => {
-  // constant
+  const $minesweeperBoard = document.querySelector('.minesweeper-board');
+
+  // constant ----------------------------------------
   const SOUND = {
     leftClk: '../music/leftClickSound.mp3',
     rightClk: '../music/rightClickSound.mp3',
@@ -11,7 +13,7 @@ const minesweeperGame = (() => {
     lose: '../music/loseSound.mp3'
   };
   const SQUARE = {
-    NOMAL: -1,
+    NORMAL: -1,
     FLAG: -2,
     MINE: -3,
     FLAG_MINE: -4,
@@ -26,12 +28,12 @@ const minesweeperGame = (() => {
   };
   const MODE = {
     EASY: { ROW: 10, COL: 10, MINE_NUM: 10 },
-    NOMAL: { ROW: 20, COL: 20, MINE_NUM: 60 },
+    NORMAL: { ROW: 20, COL: 20, MINE_NUM: 60 },
     HARD: { ROW: 25, COL: 25, MINE_NUM: 140 }
   };
 
   // state ----------------------------------------
-  let { ROW, COL, MINE_NUM } = MODE.NOMAL;
+  let { ROW, COL, MINE_NUM } = MODE.NORMAL;
 
   // 플레이어의 상태를 저장
   let gameBoard = [];
@@ -41,9 +43,8 @@ const minesweeperGame = (() => {
 
   // functions ----------------------------------------
   const createBoard = filling =>
-    Array(ROW)
-      .fill()
-      .map(() => Array(COL).fill(filling));
+    new Array(ROW).fill().map(() => new Array(COL).fill(filling));
+
   const setRoundScore = isWin => {
     let { score, round } = getState();
 
@@ -76,15 +77,11 @@ const minesweeperGame = (() => {
   };
 
   const createMine = () => {
-    const mines = Array.from({ length: MINE_NUM }, () =>
-      Math.floor(Math.random() * (ROW * COL))
-    );
+    const mines = new Set();
+    while (mines.size !== MINE_NUM)
+      mines.add(Math.floor(Math.random() * (ROW * COL)));
 
-    mines.forEach((el, i) => {
-      if (mines.indexOf(el) !== i) mines[i] = Math.floor(Math.random() * 100);
-    });
-
-    return mines;
+    return [...mines];
   };
 
   const setMineInfoBoard = mines => {
@@ -135,9 +132,7 @@ const minesweeperGame = (() => {
   };
 
   const renderGameBoard = () => {
-    const $minesweeperBoard = document.querySelector('.minesweeper-board');
-
-    document.querySelector('.minesweeper-board').classList.remove('win');
+    $minesweeperBoard.classList.remove('win');
 
     setStyleGameBoard();
     $minesweeperBoard.innerHTML = '';
@@ -152,11 +147,11 @@ const minesweeperGame = (() => {
         const $col = document.createElement('div');
         $col.dataset.col = y;
         $col.className = `col col${y}`;
-        $row.append($col);
+        $row.appendChild($col);
       });
-      $fragment.append($row);
+      $fragment.appendChild($row);
     });
-    $minesweeperBoard.append($fragment);
+    $minesweeperBoard.appendChild($fragment);
   };
 
   const openBoard = (row, col, visited) => {
@@ -172,7 +167,7 @@ const minesweeperGame = (() => {
       ? mineInfoBoard[row][col]
       : '';
 
-    if (mineInfoBoard[row][col] > 0) return; // 숫자면 그만
+    if (mineInfoBoard[row][col] > 0) return; // 양수면 그만
 
     const dx = [-1, 0, 1, -1, 1, -1, 0, 1];
     const dy = [-1, -1, -1, 0, 0, 1, 1, 1];
@@ -207,7 +202,7 @@ const minesweeperGame = (() => {
     }
   };
 
-  const isAllMinesFined = () =>
+  const isAllMinesFound = () =>
     ROW * COL - MINE_NUM ===
     gameBoard.reduce(
       (openNums, curBoardLine) =>
@@ -221,19 +216,17 @@ const minesweeperGame = (() => {
     );
 
   const showAllGameBoard = () => {
-    const $minesweeperBoard = document.querySelector('.minesweeper-board');
-
     $minesweeperBoard.innerHTML = '';
     const $fragment = document.createDocumentFragment();
 
     mineInfoBoard.forEach((boardLine, x) => {
       const $row = document.createElement('div');
       $row.className = `row row${x}`;
-      $row.dataset.row = x;
+      // $row.dataset.row = x;
 
       boardLine.forEach((box, y) => {
         const $col = document.createElement('div');
-        $col.dataset.col = y;
+        // $col.dataset.col = y;
         $col.className = `col col${y}`;
 
         const isValid = CODE =>
@@ -254,11 +247,11 @@ const minesweeperGame = (() => {
           isValid(SQUARE.OPENED)
         );
 
-        $row.append($col);
+        $row.appendChild($col);
       });
-      $fragment.append($row);
+      $fragment.appendChild($row);
     });
-    $minesweeperBoard.append($fragment);
+    $minesweeperBoard.appendChild($fragment);
   };
 
   const playSound = mode => {
@@ -274,7 +267,7 @@ const minesweeperGame = (() => {
 
   return {
     renderNewGame() {
-      gameBoard = createBoard(SQUARE.NOMAL);
+      gameBoard = createBoard(SQUARE.NORMAL);
       mineInfoBoard = createBoard(0);
       plantMineInGameBoard();
       renderGameBoard();
@@ -294,22 +287,19 @@ const minesweeperGame = (() => {
         gameBoard[row][col] === SQUARE.FLAG_MINE
       ) {
         gameBoard[row][col] =
-          gameBoard[row][col] === SQUARE.FLAG ? SQUARE.NOMAL : SQUARE.MINE;
+          gameBoard[row][col] === SQUARE.FLAG ? SQUARE.NORMAL : SQUARE.MINE;
         userSelected.classList.remove(CLASS_NAME[SQUARE.FLAG]);
         userSelected.innerHTML = '';
         return;
       }
       // 깃발이 아니였다면? 깃발 꽂기
       gameBoard[row][col] =
-        gameBoard[row][col] === SQUARE.NOMAL ? SQUARE.FLAG : SQUARE.FLAG_MINE;
+        gameBoard[row][col] === SQUARE.NORMAL ? SQUARE.FLAG : SQUARE.FLAG_MINE;
       userSelected.classList.add(CLASS_NAME[SQUARE.FLAG]);
       userSelected.innerHTML = `<i class="fas fa-flag"></i>`;
     },
     handleLeftClick(userSelected) {
-      if (
-        userSelected.classList.contains('opened') ||
-        userSelected.classList.contains('flag')
-      )
+      if (userSelected.matches('.opened') || userSelected.matches('.flag'))
         return;
 
       const { row } = userSelected.parentNode.dataset;
@@ -329,7 +319,7 @@ const minesweeperGame = (() => {
       openBoard(row, col, visited);
 
       // 지뢰 빼고 전부 열었을 경우 => 승리
-      if (isAllMinesFined()) {
+      if (isAllMinesFound()) {
         handleGameOver(true);
       }
     },
@@ -345,8 +335,7 @@ colorInit();
 window.addEventListener('DOMContentLoaded', minesweeperGame.renderNewGame);
 
 // 우클릭
-const $minesweeperBoard = document.querySelector('.minesweeper-board');
-$minesweeperBoard.oncontextmenu = e => {
+document.querySelector('.minesweeper-board').oncontextmenu = e => {
   e.preventDefault();
   const $col = e.target.closest('.col');
   if (!$col) return;
@@ -354,7 +343,7 @@ $minesweeperBoard.oncontextmenu = e => {
 };
 
 // 좌클릭
-$minesweeperBoard.onclick = e => {
+document.querySelector('.minesweeper-board').onclick = e => {
   const $col = e.target.closest('.col');
   if (!$col) return;
   minesweeperGame.handleLeftClick($col);
