@@ -236,19 +236,22 @@ const minesweeperGame = (() => {
         $col.dataset.col = y;
         $col.className = `col col${y}`;
 
-        const isValid = CODE => gameBoard[x][y] === CODE;
+        const isValid = CODE =>
+          CODE >= 0 ? gameBoard[x][y] >= CODE : gameBoard[x][y] === CODE;
 
         $col.innerHTML =
           isValid(SQUARE.MINE) || isValid(SQUARE.FLAG_MINE)
             ? `<i class="fas fa-bomb"></i>`
-            : isValid(SQUARE.FLAG)
-            ? box
             : box || '';
 
-        $col.classList.add(
-          gameBoard[x][y] >= 0
-            ? CLASS_NAME[SQUARE.OPENED]
-            : CLASS_NAME[gameBoard[x][y]]
+        $col.classList.toggle(
+          CLASS_NAME[SQUARE.MINE],
+          isValid(SQUARE.MINE) || isValid(SQUARE.FLAG_MINE)
+        );
+        $col.classList.toggle(CLASS_NAME[SQUARE.FLAG], isValid(SQUARE.FLAG));
+        $col.classList.toggle(
+          CLASS_NAME[SQUARE.OPENED],
+          isValid(SQUARE.OPENED)
         );
 
         $row.append($col);
@@ -266,7 +269,7 @@ const minesweeperGame = (() => {
     showAllGameBoard();
     document.querySelector('.minesweeper-board').classList.toggle('win', isWin);
     playSound(isWin ? 'win' : 'lose');
-    setTimeout(popupResult, 1000, isWin);
+    setTimeout(popupResult, 100, isWin);
   };
 
   return {
@@ -277,11 +280,7 @@ const minesweeperGame = (() => {
       renderGameBoard();
     },
     handleRightClick(userSelected) {
-      if (
-        userSelected.classList.contains('opened') ||
-        userSelected.classList.contains('flag')
-      )
-        return;
+      if (userSelected.classList.contains('opened')) return;
 
       const { row } = userSelected.parentNode.dataset;
       const { col } = userSelected.dataset;
