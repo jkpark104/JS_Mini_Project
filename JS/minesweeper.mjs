@@ -25,7 +25,7 @@ const minesweeperGame = (() => {
     0: 'opened'
   };
   const MODE = {
-    EASY: { ROW: 10, COL: 10, MINE_NUM: 1 },
+    EASY: { ROW: 10, COL: 10, MINE_NUM: 10 },
     NOMAL: { ROW: 20, COL: 20, MINE_NUM: 60 },
     HARD: { ROW: 25, COL: 25, MINE_NUM: 140 }
   };
