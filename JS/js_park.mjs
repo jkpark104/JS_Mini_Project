@@ -1,4 +1,5 @@
 import anime from '../node_modules/animejs/lib/anime.es.js';
+import colorInit from './changeMainColor.js';
 
 const colorGames = (() => {
   const state = {
@@ -110,6 +111,7 @@ const colorGames = (() => {
   };
 })();
 
+colorInit();
 window.addEventListener('DOMContentLoaded', colorGames.renderPallette);
 
 document.querySelector('.color-palette').onclick = e => {

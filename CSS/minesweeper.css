@@ -51,7 +51,7 @@
   transition: 0.3s all ease;
 }
 .opened {
-  background-color: steelblue;
+  background-color: var(--main-color);
   color: white;
   transition: 0.5s all ease;
 }

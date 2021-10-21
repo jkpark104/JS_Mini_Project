@@ -1,3 +1,3 @@
-// import { getState, setState } from './state';
+import colorInit from './changeMainColor.js';
 
-// console.log(getState());
+colorInit();

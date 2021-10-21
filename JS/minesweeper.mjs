@@ -1,4 +1,5 @@
 import { getState, setState } from './state.mjs';
+import colorInit from './changeMainColor.js';
 
 // closer
 const minesweeperGame = (() => {
@@ -345,6 +346,7 @@ const minesweeperGame = (() => {
 })();
 
 // event bindings ----------------------------------------
+colorInit();
 window.addEventListener('DOMContentLoaded', minesweeperGame.renderNewGame);
 
 // 우클릭
