@@ -40,9 +40,11 @@
   pointer-events: none;
   border-radius: 10px;
 }
+
 .cardBack {
   background-color: var(--main-color);
   backface-visibility: hidden;
+  border: 1px solid var(--main-color);
 }
 
 .toggleCard {

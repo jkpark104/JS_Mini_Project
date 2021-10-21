@@ -2,13 +2,14 @@ import colorInit from './changeMainColor.js';
 
 const $cardSection = document.querySelector('.cardSection');
 const $userLife = document.querySelector('.userLife');
+
 const MODE = {
-  EASY: { CARDSCOUNT: 9, GRIDSTYLE: 'repeat(3, 10rem)', USERLIFE: 4 },
-  NORMAL: { CARDSCOUNT: 16, GRIDSTYLE: 'repeat(4, 8rem)', USERLIFE: 8 },
-  HARD: { CARDSCOUNT: 25, GRIDSTYLE: 'repeat(5, 7rem)', USERLIFE: 12 }
+  EASY: { CARDSCOUNT: 9, GRIDSIZE: '3', USERLIFE: 4 },
+  NORMAL: { CARDSCOUNT: 16, GRIDSIZE: '4', USERLIFE: 8 },
+  HARD: { CARDSCOUNT: 25, GRIDSIZE: '5', USERLIFE: 12 }
 };
 
-let { CARDSCOUNT, GRIDSTYLE, USERLIFE } = MODE.NORMAL;
+let { CARDSCOUNT, GRIDSIZE, USERLIFE } = MODE.NORMAL;
 
 const SOUND = {
   cardFlip: '../music/cardFlip.mp3',
@@ -29,7 +30,7 @@ const state = {
 const changeMode = mode => {
   const codeMode = mode.toUpperCase();
   CARDSCOUNT = MODE[codeMode].CARDSCOUNT;
-  GRIDSTYLE = MODE[codeMode].GRIDSTYLE;
+  GRIDSIZE = MODE[codeMode].GRIDSIZE;
   USERLIFE = MODE[codeMode].USERLIFE;
 };
 
@@ -50,8 +51,14 @@ const randomizeCardImages = () => {
 // Render card section
 const renderCards = () => {
   const cardImages = randomizeCardImages();
-  $cardSection.style.setProperty('grid-template-columns', `${GRIDSTYLE}`);
-  $cardSection.style.setProperty('grid-template-rows', `${GRIDSTYLE}`);
+  $cardSection.style.setProperty(
+    'grid-template-columns',
+    `repeat(${GRIDSIZE}, 2.7em)`
+  );
+  $cardSection.style.setProperty(
+    'grid-template-rows',
+    `repeat(${GRIDSIZE}, 2.7em)`
+  );
 
   $userLife.textContent = USERLIFE;
 
@@ -83,9 +90,8 @@ const renderCards = () => {
 
 const updateState = LifeCount => {
   const { mode } = document.querySelector('.current-mode').dataset;
-  console.log(mode);
   const expectedScore = mode === 'easy' ? 50 : mode === 'normal' ? 100 : 150;
-  console.log(expectedScore);
+
   state.score += expectedScore * (LifeCount === 0 ? -1 : 1);
   state.round += 1;
 
@@ -107,13 +113,11 @@ const checkCards = e => {
       $flippedCards[0].getAttribute('name') ===
       $flippedCards[1].getAttribute('name')
     ) {
-      console.log('match');
       $flippedCards.forEach(card => {
         card.classList.remove('flipped');
         card.style.pointerEvents = 'none';
       });
     } else {
-      console.log('wrong');
       $flippedCards.forEach(card => {
         card.classList.remove('flipped');
         setTimeout(() => card.classList.remove('toggleCard'), 1000);
@@ -177,6 +181,34 @@ $cardSection.onclick = e => {
   if (!e.target.classList.contains('cardContainer')) return;
   playSound('cardFlip');
 };
+
+// Media Query Event
+const mediaQueryList = matchMedia('(min-width: 750px)');
+
+function handleGridSize(mediaQuery) {
+  console.log('sd');
+  if (!mediaQuery.matches) {
+    $cardSection.style.setProperty(
+      'grid-template-columns',
+      `repeat(${GRIDSIZE}, 2.3em)`
+    );
+    $cardSection.style.setProperty(
+      'grid-template-rows',
+      `repeat(${GRIDSIZE}, 2.3em)`
+    );
+  } else {
+    $cardSection.style.setProperty(
+      'grid-template-columns',
+      `repeat(${GRIDSIZE}, 2.8em)`
+    );
+    $cardSection.style.setProperty(
+      'grid-template-rows',
+      `repeat(${GRIDSIZE}, 2.8em)`
+    );
+  }
+}
+
+mediaQueryList.addEventListener('change', handleGridSize);
 
 colorInit();
 
