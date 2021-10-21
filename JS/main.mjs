@@ -37,3 +37,15 @@ anime.timeline().add(
     duration: 1000
   });
 });
+
+// Game container mouseover event
+const $gameList = document.querySelector('.game-list');
+$gameList.addEventListener('mouseover', e => {
+  if (!e.target.classList.contains('game-container')) return;
+  e.target.style.setProperty('transform', 'rotateY(180deg)');
+});
+
+$gameList.addEventListener('mouseout', e => {
+  if (!e.target.classList.contains('game-container')) return;
+  e.target.style.setProperty('transform', '');
+});

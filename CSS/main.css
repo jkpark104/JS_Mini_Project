@@ -83,9 +83,9 @@ h1 {
   -moz-animation: Gradient 5s ease infinite;
 }
 
-.game-container:hover {
+/* .game-container:hover {
   transform: rotateY(180deg);
-}
+} */
 
 .game-gif,
 .game-back {
@@ -109,11 +109,10 @@ h1 {
   position: relative;
   font-size: 3em;
   text-transform: uppercase;
-  word-break: break-all;
 
   background: linear-gradient(110deg, #be5814 33%, rgba(0, 0, 0, 0) 33%),
     linear-gradient(110deg, #93c4ad 34%, #6ac296 34%);
-  background-size: 400%;
+  /* background-size: 400%; */
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
 
@@ -137,7 +136,7 @@ h1 {
 .mine,
 .color,
 .card {
-  background-size: cover;
+  background-size: contain;
   background-position-x: center;
   transform: scaleX(-1);
 }
