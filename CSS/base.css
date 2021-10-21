@@ -3,6 +3,7 @@
   --main-color: #4682b4;
   --font-color: rgb(77, 77, 77);
 }
+
 body {
   font-family: 'IBM Plex Sans KR', sans-serif;
   display: flex;
@@ -23,6 +24,17 @@ body {
 
 .hidden {
   display: none !important;
+}
+
+.container {
+  text-align: center;
+}
+
+.effect {
+  margin: 0;
+  font-size: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .game-mode {
