@@ -4,6 +4,7 @@
   --row: 0;
   --width-ratio: 0%;
   --font-size: calc(var(--gameBoard-width) / (var(--row) + 4));
+  --black: rgb(23, 23, 23);
 }
 @media screen and (max-width: 700px) {
   :root {
@@ -51,9 +52,9 @@
   transition: 0.3s all ease;
 }
 .opened {
-  background-color: var(--main-color);
-  color: var(--font-size);
   transition: 0.5s all ease;
+  background-color: var(--black);
+  color: white;
 }
 .mine {
   background-color: rgba(255, 0, 0, 0.8);
