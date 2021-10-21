@@ -238,37 +238,19 @@ const minesweeperGame = (() => {
         $col.dataset.col = y;
         $col.className = `col col${y}`;
 
-        // $col.innerHTML = box;
-        // if (
-        //   gameBoard[x][y] === SQUARE.MINE ||
-        //   gameBoard[x][y] === SQUARE.FLAG_MINE
-        // ) {
-        //   $col.classList.add(CLASS_NAME[SQUARE.MINE]);
-        //   $col.innerHTML = `<i class="fas fa-bomb"></i>`;
-        // }
-        // if (gameBoard[x][y] === SQUARE.FLAG) {
-        //   $col.classList.add(CLASS_NAME[SQUARE.FLAG]);
-        // }
-        // if (gameBoard[x][y] >= SQUARE.OPENED) {
-        //   $col.classList.add(CLASS_NAME[SQUARE.OPENED]);
-        // }
-
-        const isValid = CODE =>
-          CODE >= 0 ? gameBoard[x][y] >= CODE : gameBoard[x][y] === CODE;
+        const isValid = CODE => gameBoard[x][y] === CODE;
 
         $col.innerHTML =
           isValid(SQUARE.MINE) || isValid(SQUARE.FLAG_MINE)
             ? `<i class="fas fa-bomb"></i>`
+            : isValid(SQUARE.FLAG)
+            ? box
             : box || '';
 
-        $col.classList.toggle(
-          CLASS_NAME[SQUARE.MINE],
-          isValid(SQUARE.MINE) || isValid(SQUARE.FLAG_MINE)
-        );
-        $col.classList.toggle(CLASS_NAME[SQUARE.FLAG], isValid(SQUARE.FLAG));
-        $col.classList.toggle(
-          CLASS_NAME[SQUARE.OPENED],
-          isValid(SQUARE.OPENED)
+        $col.classList.add(
+          gameBoard[x][y] >= 0
+            ? CLASS_NAME[SQUARE.OPENED]
+            : CLASS_NAME[gameBoard[x][y]]
         );
 
         $row.append($col);
