@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* font-family: 'Raleway', sans-serif; */
 }
 
 body {
@@ -11,7 +10,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #e1fbff;
 }
 
 .game-list {
@@ -46,33 +44,31 @@ body {
 }
 
 .game-back {
-  background-color: #4682b4;
+  background-color: var(--main-color);
   backface-visibility: hidden;
 }
 
-.mine {
-  background-image: url(../images/minesweeper.gif);
+.mine,
+.color,
+.card {
   background-size: cover;
   background-position-x: center;
-  transform: rotateY(-180deg);
+  transform: scaleX(-1);
+}
+.mine {
+  background-image: url(../images/minesweeper.gif);
 }
 
 .color {
   background-image: url(../images/card_ani.gif);
-  background-size: cover;
-  background-position-x: center;
-  transform: rotateY(-180deg);
 }
 
 .card {
   background-image: url(../images/card_ani.gif);
-  background-size: cover;
-  background-position-x: center;
-  transform: rotateY(-180deg);
 }
 
 h1 {
   font-size: 5em;
-  color: #085863;
+  color: var(--font-color);
   margin-top: 50px;
 }

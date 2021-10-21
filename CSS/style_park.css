@@ -90,7 +90,7 @@
   align-items: center;
   font-size: 1.5rem;
   color: #fff;
-  background: steelblue;
+  background: var(--main-color);
   min-height: 4rem;
   padding: 0 3rem 0;
   margin-bottom: 1.5rem;
@@ -184,5 +184,5 @@
 
 footer {
   height: 3rem;
-  background: steelblue;
+  background: var(--main-color);
 } */

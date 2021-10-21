@@ -44,7 +44,7 @@
   border-radius: 10px;
 }
 .cardBack {
-  background-color: #4682b4;
+  background-color: var(--main-color);
   backface-visibility: hidden;
 }
 

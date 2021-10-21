@@ -2,7 +2,7 @@
   display: none;
 }
 .title {
-  color: steelblue;
+  color: var(--main-color);
   font-size: 2em;
   text-align: center;
 }
@@ -55,7 +55,7 @@
 .modal-cancel:hover,
 .modal-accept:hover {
   color: white;
-  background-color: steelblue;
+  background-color: var(--main-color);
 }
 
 .modal-close {

@@ -1,3 +1,5 @@
+// import colorInit from './changeMainColor.js';
+
 const $cardSection = document.querySelector('.cardSection');
 const $userLife = document.querySelector('.userLife');
 const MODE = {
@@ -214,3 +216,5 @@ $cardSection.onclick = (() => {
     startOrStopElapsedTime();
   };
 })();
+
+// colorInit();
