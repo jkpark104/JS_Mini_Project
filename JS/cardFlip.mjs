@@ -33,20 +33,6 @@ const changeMode = mode => {
   USERLIFE = MODE[codeMode].USERLIFE;
 };
 
-// Get cards images
-const getCardImages = CARDSCOUNT =>
-  Array.from({ length: CARDSCOUNT }, (_, index) => ({
-    imgSrc: `../cardImg/${Math.floor(index / 2) + 1}.jpg`,
-    name: `${Math.floor(index / 2) + 1}`
-  }));
-
-// Randomize cards images
-const randomizeCardImages = () => {
-  const cardImagesData = getCardImages(CARDSCOUNT);
-  cardImagesData.sort(() => Math.random() - 0.5);
-  return cardImagesData;
-};
-
 // Render card section
 const renderCards = () => {
   const cardImages = randomizeCardImages();
@@ -79,6 +65,20 @@ const renderCards = () => {
       `.display-${key}`
     ).textContent = `${key.toUpperCase()} ${value}`;
   });
+};
+
+// Get cards images
+const getCardImages = CARDSCOUNT =>
+  Array.from({ length: CARDSCOUNT }, (_, index) => ({
+    imgSrc: `../cardImg/${Math.floor(index / 2) + 1}.jpg`,
+    name: `${Math.floor(index / 2) + 1}`
+  }));
+
+// Randomize cards images
+const randomizeCardImages = () => {
+  const cardImagesData = getCardImages(CARDSCOUNT);
+  cardImagesData.sort(() => Math.random() - 0.5);
+  return cardImagesData;
 };
 
 const updateState = LifeCount => {
