@@ -69,6 +69,21 @@ body {
 
 h1 {
   font-size: 5em;
+<<<<<<< Updated upstream
   color: var(--font-color);
+=======
+  color: pink;
+>>>>>>> Stashed changes
   margin-top: 50px;
+}
+
+.container {
+  text-align: center;
+}
+
+.effect {
+  margin: 0;
+  font-size: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }

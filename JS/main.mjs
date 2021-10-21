@@ -1,3 +1,39 @@
+import anime from '../node_modules/animejs/lib/anime.es.js';
 import colorInit from './changeMainColor.js';
 
 colorInit();
+
+const $effect = document.querySelector('.effect');
+
+$effect.innerHTML = $effect.textContent.replace(
+  /([^.\s]|\w)/g,
+  "<span class='letter'>$&</span>"
+);
+
+anime.timeline().add(
+  {
+    targets: '.effect .letter',
+    scale: [5, 1],
+    opacity: [0, 1],
+    translateZ: 0,
+    easing: 'easeOutExpo',
+    duration: 1350,
+    delay(_, index) {
+      return 70 * index;
+    }
+  },
+  3000
+);
+
+[...document.querySelectorAll('.game-list a')].forEach((el, index) => {
+  anime.timeline().add({
+    translateY: [-100, 0],
+    targets: el,
+    opacity: [0, 1],
+    easing: 'easeInOutQuad',
+    delay() {
+      return 1000 * index;
+    },
+    duration: 1000
+  });
+});

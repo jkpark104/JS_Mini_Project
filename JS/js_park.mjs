@@ -1,4 +1,4 @@
-import anime from '../node_modules/animejs/lib/anime.es.js';
+// import anime from '../node_modules/animejs/lib/anime.es.js';
 import colorInit from './changeMainColor.js';
 
 const colorGames = (() => {
@@ -41,11 +41,13 @@ const colorGames = (() => {
 
       state.answer = colorGroups[Math.floor(Math.random() * 4)];
 
-      [...document.querySelectorAll('.palette-item')].forEach(
-        ({ style }, index) => {
-          style.setProperty('background-color', `rgb(${colorGroups[index]})`);
-        }
-      );
+      [...document.querySelectorAll('.palette-item')].forEach((item, index) => {
+        item.style.setProperty(
+          'background-color',
+          `rgb(${colorGroups[index]})`
+        );
+        item.innerHTML = `<span>RGB (${colorGroups[index]})</span>`;
+      });
 
       Object.entries({
         rgb: `(${state.answer.join(', ')})`,
@@ -115,15 +117,13 @@ colorInit();
 window.addEventListener('DOMContentLoaded', colorGames.renderPallette);
 
 document.querySelector('.color-palette').onclick = e => {
-  if (!e.target.matches('.palette-item')) return;
-
-  e.target.classList.add('active');
+  e.target.closest('li').classList.add('active');
 
   setTimeout(() => {
-    e.target.classList.remove('active');
+    e.target.closest('li').classList.remove('active');
   }, 1000);
 
-  colorGames.updateState(e.target);
+  colorGames.updateState(e.target.closest('li'));
 };
 
 document.querySelector('.game-mode').onclick = e => {
@@ -133,46 +133,3 @@ document.querySelector('.game-mode').onclick = e => {
 document.querySelector('.restart').onclick = colorGames.renderPallette;
 
 document.querySelector('.hint').onclick = colorGames.toggleHint;
-
-const logoTimeline = anime.timeline({
-  autoplay: true,
-  direction: 'alternate',
-  loop: true
-});
-
-anime.timeline({ loop: true }).add({
-  targets: '.ml11 .letter',
-  opacity: [0, 1],
-  easing: 'easeOutExpo',
-  duration: 600,
-  offset: '-=775',
-  delay: (el, i) => 34 * (i + 1)
-});
-
-// logoTimeline
-//   .add({
-//     targets: '.checkmark',
-//     scale: [{ value: [0, 1], duration: 600, easing: 'easeOutQuad' }]
-//   })
-//   .add({
-//     targets: '.check',
-//     strokeDashoffset: {
-//       value: [anime.setDashoffset, 0],
-//       duration: 700,
-//       delay: 200,
-//       easing: 'easeOutQuart'
-//     },
-//     translateX: {
-//       value: [6, 0],
-//       duration: 700,
-//       delay: 200,
-//       easing: 'easeOutQuart'
-//     },
-//     translateY: {
-//       value: [-2, 0],
-//       duration: 700,
-//       delay: 200,
-//       easing: 'easeOutQuart'
-//     },
-//     offset: 0
-//   });
