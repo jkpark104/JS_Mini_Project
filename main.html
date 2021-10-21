@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game Snacks</title>
-    <link rel="stylesheet" href="./CSS/base.css" />
-    <link rel="stylesheet" href="./CSS/hover.css" />
+    <!-- <link rel="stylesheet" href="./CSS/base.css" /> -->
+    <link rel="stylesheet" href="./CSS/reset.css" />
+    <link rel="stylesheet" href="./CSS/main.css" />
   </head>
   <body>
     <div class="container">
@@ -16,24 +17,29 @@
       <a href="./minesweeper.html">
         <div class="play-on-hover game-container">
           <div class="game-gif mine"></div>
-          <div class="game-back"></div>
+          <div class="game-back">
+            <h2 class="game-name">Mine Sweeper</h2>
+          </div>
         </div>
       </a>
 
       <a href="./color-game.html">
         <div class="play-on-hover game-container">
           <div class="game-gif color"></div>
-          <div class="game-back"></div>
+          <div class="game-back">
+            <h2 class="game-name">RGB Guessing</h2>
+          </div>
         </div>
       </a>
 
       <a href="./cardFlip.html">
         <div class="play-on-hover game-container">
           <div class="game-gif card"></div>
-          <div class="game-back"></div>
+          <div class="game-back">
+            <h2 class="game-name">Card Memory</h2>
+          </div>
         </div>
       </a>
     </div>
-    <script type="module" src="JS/main.mjs"></script>
   </body>
 </html>

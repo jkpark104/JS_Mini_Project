@@ -1,0 +1,153 @@
+:root {
+  --main-color: #4682b4;
+  --font-color: rgb(77, 77, 77);
+}
+
+@media screen and (max-width: 799px) {
+  body {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    font-size: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .game-list {
+    flex-direction: column;
+    margin-top: 100px;
+
+    /* display: none; */
+  }
+
+  .game-container {
+    margin: 30px 0;
+    width: 300px;
+    height: 300px;
+  }
+}
+
+body {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 5em;
+  color: var(--font-color);
+  margin-top: 50px;
+}
+
+.container {
+  text-align: center;
+  margin-bottom: 3em;
+}
+
+.effect {
+  margin: 0;
+  font-size: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.game-list {
+  display: flex;
+  margin-top: 30px;
+  justify-content: center;
+  gap: 0.1em;
+  font-size: 0.85em;
+}
+
+.game-container {
+  text-align: center;
+  width: 340px;
+  height: 340px;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px -5px #ccc;
+  margin: 0 30px;
+
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 1s ease;
+
+  background: linear-gradient(110deg, #ffeead 33%, rgba(0, 0, 0, 0) 33%),
+    linear-gradient(110deg, #c5e7d7 34%, #88d8b0 34%);
+  background-size: 400% 400%;
+  background-position: 25% 50%;
+  -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 5s ease infinite;
+}
+
+.game-container:hover {
+  transform: rotateY(180deg);
+}
+
+.game-gif,
+.game-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  pointer-events: none;
+  border-radius: 10px;
+}
+
+.game-back {
+  background-color: var(--main-color);
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-name {
+  position: relative;
+  font-size: 3em;
+  text-transform: uppercase;
+  word-break: break-all;
+
+  background: linear-gradient(110deg, #be5814 33%, rgba(0, 0, 0, 0) 33%),
+    linear-gradient(110deg, #93c4ad 34%, #6ac296 34%);
+  background-size: 400%;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+
+  animation: Gradient 5s ease infinite;
+  -webkit-animation: Gradient 5s ease infinite;
+  -moz-animation: Gradient 5s ease infinite;
+}
+
+@-webkit-keyframes Gradient {
+  0% {
+    background-position: 30% 50%;
+  }
+  50% {
+    background-position: 25% 50%;
+  }
+  100% {
+    background-position: 30% 50%;
+  }
+}
+
+.mine,
+.color,
+.card {
+  background-size: cover;
+  background-position-x: center;
+  transform: scaleX(-1);
+}
+.mine {
+  background-image: url(../images/minesweeper.gif);
+}
+
+.color {
+  background-image: url(../images/card_ani.gif);
+}
+
+.card {
+  background-image: url(../images/card_ani.gif);
+}

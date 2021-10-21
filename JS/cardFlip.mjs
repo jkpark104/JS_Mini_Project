@@ -173,46 +173,46 @@ document.querySelector('.restart').onclick = () => {
   restart('게임을 다시 시작합니다.');
 };
 
-let elapsedTime = { mm: 0, ss: 0, ms: 0 };
-
-const formatElapsedTime = (() => {
-  const format = n => (n < 10 ? '0' + n : n + '');
-  return ({ mm, ss, ms }) => `${format(mm)}:${format(ss)}:${format(ms)}`;
-})();
-
-const renderElapsedTime = (() => {
-  const $elapsedTime = document.querySelector('.elapsedTime');
-  return () => {
-    $elapsedTime.textContent = formatElapsedTime(elapsedTime);
-  };
-})();
-
-let timerId = null;
-
-const start = () => {
-  let { mm, ss, ms } = elapsedTime;
-
-  timerId = setInterval(() => {
-    ms -= 1;
-    if (ms <= 100) {
-      ss -= 1;
-      ms = 0;
-    }
-    if (ss <= 60) {
-      mm -= 1;
-      ss = 0;
-    }
-
-    elapsedTime = { mm, ss, ms };
-    renderElapsedTime();
-  }, 10);
-};
-
-const stop = () => clearInterval(timerId);
-
 $cardSection.onclick = e => {
   if (!e.target.classList.contains('cardContainer')) return;
   playSound('cardFlip');
 };
 
 colorInit();
+
+// let elapsedTime = { mm: 0, ss: 0, ms: 0 };
+
+// const formatElapsedTime = (() => {
+//   const format = n => (n < 10 ? '0' + n : n + '');
+//   return ({ mm, ss, ms }) => `${format(mm)}:${format(ss)}:${format(ms)}`;
+// })();
+
+// const renderElapsedTime = (() => {
+//   const $elapsedTime = document.querySelector('.elapsedTime');
+//   return () => {
+//     $elapsedTime.textContent = formatElapsedTime(elapsedTime);
+//   };
+// })();
+
+// let timerId = null;
+
+// const start = () => {
+//   let { mm, ss, ms } = elapsedTime;
+
+//   timerId = setInterval(() => {
+//     ms -= 1;
+//     if (ms <= 100) {
+//       ss -= 1;
+//       ms = 0;
+//     }
+//     if (ss <= 60) {
+//       mm -= 1;
+//       ss = 0;
+//     }
+
+//     elapsedTime = { mm, ss, ms };
+//     renderElapsedTime();
+//   }, 10);
+// };
+
+// const stop = () => clearInterval(timerId);
