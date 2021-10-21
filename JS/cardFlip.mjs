@@ -1,4 +1,4 @@
-// import colorInit from './changeMainColor.js';
+import colorInit from './changeMainColor.js';
 
 const $cardSection = document.querySelector('.cardSection');
 const $userLife = document.querySelector('.userLife');
@@ -9,6 +9,16 @@ const MODE = {
 };
 
 let { CARDSCOUNT, GRIDSTYLE, USERLIFE } = MODE.NORMAL;
+
+const SOUND = {
+  cardFlip: '../music/cardFlip.mp3',
+  win: '../music/winCardFlip.mp3',
+  lose: '../music/loseCardFlip.mp3'
+};
+
+const playSound = mode => {
+  new Audio(SOUND[mode]).play();
+};
 
 const state = {
   round: 1,
@@ -111,6 +121,7 @@ const checkCards = e => {
       state.userLifeCount--;
       $userLife.textContent = state.userLifeCount;
       if (state.userLifeCount === 0) {
+        playSound('lose');
         alert('실패하셨습니다?');
         updateState(state.userLifeCount);
       }
@@ -119,6 +130,7 @@ const checkCards = e => {
 
   if ($toggleCards.length === 16) {
     alert('성공하셨습니다!');
+    playSound('win');
     updateState(state.userLifeCount);
   }
 };
@@ -161,60 +173,46 @@ document.querySelector('.restart').onclick = () => {
   restart('게임을 다시 시작합니다.');
 };
 
-$cardSection.onclick = (() => {
-  let isRunning = false;
-  let elapsedTime = { mm: 0, ss: 0, ms: 0 };
+let elapsedTime = { mm: 0, ss: 0, ms: 0 };
 
-  const formatElapsedTime = (() => {
-    const format = n => (n < 10 ? '0' + n : n + '');
-    return ({ mm, ss, ms }) => `${format(mm)}:${format(ss)}:${format(ms)}`;
-  })();
+const formatElapsedTime = (() => {
+  const format = n => (n < 10 ? '0' + n : n + '');
+  return ({ mm, ss, ms }) => `${format(mm)}:${format(ss)}:${format(ms)}`;
+})();
 
-  const renderElapsedTime = (() => {
-    const $elapsedTime = document.querySelector('.elapsedTime');
-    return () => {
-      $elapsedTime.textContent = formatElapsedTime(elapsedTime);
-    };
-  })();
-
-  const startOrStopElapsedTime = (() => {
-    let timerId = null;
-
-    const start = () => {
-      let { mm, ss, ms } = elapsedTime;
-
-      timerId = setInterval(() => {
-        ms += 1;
-        if (ms >= 100) {
-          ss += 1;
-          ms = 0;
-        }
-        if (ss >= 60) {
-          mm += 1;
-          ss = 0;
-        }
-
-        elapsedTime = { mm, ss, ms };
-        renderElapsedTime();
-      }, 10);
-    };
-
-    const stop = () => clearInterval(timerId);
-
-    return () => {
-      isRunning ? stop() : start();
-      // isRunning = !isRunning;
-    };
-  })();
-
-  return ({ target }) => {
-    if (!target.classList.contains('cardContainer')) return;
-    if (state.userLifeCount === 0) {
-      isRunning = !isRunning;
-      startOrStopElapsedTime();
-    }
-    startOrStopElapsedTime();
+const renderElapsedTime = (() => {
+  const $elapsedTime = document.querySelector('.elapsedTime');
+  return () => {
+    $elapsedTime.textContent = formatElapsedTime(elapsedTime);
   };
 })();
 
-// colorInit();
+let timerId = null;
+
+const start = () => {
+  let { mm, ss, ms } = elapsedTime;
+
+  timerId = setInterval(() => {
+    ms -= 1;
+    if (ms <= 100) {
+      ss -= 1;
+      ms = 0;
+    }
+    if (ss <= 60) {
+      mm -= 1;
+      ss = 0;
+    }
+
+    elapsedTime = { mm, ss, ms };
+    renderElapsedTime();
+  }, 10);
+};
+
+const stop = () => clearInterval(timerId);
+
+$cardSection.onclick = e => {
+  if (!e.target.classList.contains('cardContainer')) return;
+  playSound('cardFlip');
+};
+
+colorInit();
