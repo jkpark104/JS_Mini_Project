@@ -1,5 +1,5 @@
 import { getState, setState } from './state.mjs';
-import colorInit from './changeMainColor.js';
+import colorInit from './changeMainColor.mjs';
 
 // closer
 const minesweeperGame = (() => {
