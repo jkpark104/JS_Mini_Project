@@ -1,5 +1,5 @@
 import anime from '../node_modules/animejs/lib/anime.es.js';
-import colorInit from './changeMainColor.js';
+import colorInit from './changeMainColor.mjs';
 
 colorInit();
 

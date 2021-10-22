@@ -1,4 +1,4 @@
-import colorInit from './changeMainColor.js';
+import colorInit from './changeMainColor.mjs';
 
 const $cardSection = document.querySelector('.cardSection');
 const $userLife = document.querySelector('.userLife');

@@ -1,14 +1,10 @@
-// import anime from '../node_modules/animejs/lib/anime.es.js';
-import colorInit from './changeMainColor.js';
+import colorInit from './changeMainColor.mjs';
 
 const colorGames = (() => {
   const state = {
     answer: null,
-
     round: 1,
-
     score: 0,
-
     mode: 'normal'
   };
 
@@ -67,7 +63,17 @@ const colorGames = (() => {
       state.score += expectedScore * (isAnswer(eventTarget) ? 1 : -1);
       state.round += 1;
 
+      new Audio(
+        `../music/${isAnswer(eventTarget) ? 'correct' : 'wrong'}.mp3`
+      ).play();
+
+      document.body.style.setProperty(
+        'background-color',
+        `${isAnswer(eventTarget) ? '#00CC6E' : 'tomato'}`
+      );
+
       setTimeout(() => {
+        document.body.style.removeProperty('background-color');
         colorGames.renderPallette();
       }, 1000);
 
@@ -117,6 +123,8 @@ colorInit();
 window.addEventListener('DOMContentLoaded', colorGames.renderPallette);
 
 document.querySelector('.color-palette').onclick = e => {
+  if (e.target.matches('.color-palette')) return;
+
   e.target.closest('li').classList.add('active');
 
   setTimeout(() => {
