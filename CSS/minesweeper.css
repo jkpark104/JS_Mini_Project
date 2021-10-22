@@ -1,4 +1,16 @@
 @import url('./popup.css');
+:root {
+  --gameBoard-width: 80vh;
+  --row: 0;
+  --width-ratio: 0%;
+  --font-size: calc(var(--gameBoard-width) / (var(--row) + 4));
+  --black: rgb(23, 23, 23);
+}
+@media screen and (max-width: 700px) {
+  :root {
+    --gameBoard-width: 90vw;
+  }
+}
 .minesweeper-title {
   padding: 2rem;
   font-size: 2rem;
@@ -10,13 +22,13 @@
   align-items: center;
 }
 .minesweeper-board {
-  width: 500px;
-  height: 500px;
+  margin: 1em;
+  width: var(--gameBoard-width);
+  height: var(--gameBoard-width);
   border: 1px solid rgba(0, 0, 0, 0.1);
   font-weight: 700;
 }
 .row {
-  --width-ratio: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,17 +41,24 @@
   justify-content: center;
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: var(--font-size);
+  cursor: pointer;
 }
 .col:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
 .flag {
   color: red;
-  font-size: 1.5em;
   transition: 0.3s all ease;
 }
 .opened {
-  background-color: steelblue;
-  color: white;
   transition: 0.5s all ease;
+  background-color: var(--black);
+  color: white;
+}
+.mine {
+  background-color: rgba(255, 0, 0, 0.8);
+}
+.win .mine {
+  background-color: rgba(172, 255, 47, 0.893) !important;
 }

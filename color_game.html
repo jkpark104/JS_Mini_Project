@@ -5,24 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="CSS/base.css" />
-    <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/minesweeper.css" />
-    <title>Mine Sweeper</title>
+    <link rel="stylesheet" href="css/color_game.css" />
+    <title>RGB GUESSING GAME</title>
   </head>
+
   <body>
     <header class="header">
       <h1 class="title a11y-hidden">Mini Game</h1>
@@ -42,24 +33,27 @@
             HARD
           </button>
         </div>
-        <h2 class="display display-title">
-          <i class="fas fa-bomb"></i> Mine Sweeper <i class="fas fa-bomb"></i>
-        </h2>
+        <span class="display display-rgb">rgb(184, 60, 143)</span>
         <div class="wrapper">
           <span class="display-round">Round: 1</span>
           <span class="display-score">Score: 0</span>
         </div>
       </nav>
     </header>
-
-    <section class="minesweeper-wrap">
-      <div class="minesweeper-board"></div>
+    <section class="color-game">
+      <ul class="color-palette">
+        <li class="palette-item color1"></li>
+        <li class="palette-item color2"></li>
+        <li class="palette-item color3"></li>
+        <li class="palette-item color4"></li>
+      </ul>
+      <button type="button" class="hint">HINT</button>
+      <ul class="hint-list"></ul>
     </section>
-
     <footer class="footer">
       <a href="/" class="home">HOME</a>
       <button type="button" class="restart">Restart</button>
     </footer>
-    <script type="module" src="js/minesweeper.mjs"></script>
+    <script type="module" src="js/color_game.mjs"></script>
   </body>
 </html>

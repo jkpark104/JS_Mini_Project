@@ -1,6 +1,15 @@
 /* COMMON */
+:root {
+  --main-color: #4682b4;
+  --font-color: rgb(77, 77, 77);
+}
+
 body {
   font-family: 'IBM Plex Sans KR', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
 }
 
 .a11y-hidden {
@@ -13,21 +22,54 @@ body {
   margin: -1px;
 }
 
+.hidden {
+  display: none !important;
+}
+
+.container {
+  text-align: center;
+}
+
+.effect {
+  margin: 0;
+  font-size: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.game-mode {
+  z-index: 1;
+}
+
+.game-mode-button {
+  color: inherit;
+  /* font-size: 0.6em; */
+  cursor: pointer;
+  background-color: transparent;
+  border: 0.125rem solid var(--font-color);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  transition: all 0.4s ease;
+}
+
+.game-mode-button:hover,
+.game-mode-button.current-mode {
+  color: var(--main-color);
+  background-color: var(--font-color);
+}
 .navigation {
   display: flex;
   position: relative;
   align-items: center;
   font-size: 1.5rem;
-  color: #fff;
-  background: steelblue;
-
-  /* margin-bottom: 1.5rem; */
+  color: var(--font-color);
+  background: var(--main-color);
 }
 
 @media screen and (min-width: 800px) {
   .navigation {
     justify-content: space-between;
-    min-height: 4rem;
+    min-height: 3.5rem;
     padding: 0 3rem 0;
   }
 }
@@ -38,25 +80,12 @@ body {
     justify-content: center;
     min-height: 5rem;
     gap: 0.5rem;
+    font-size: 1rem;
+    padding: 0.5rem;
   }
-}
-
-.restart {
-  z-index: 1;
-  color: inherit;
-  font-size: inherit;
-  cursor: pointer;
-  background-color: transparent;
-  border: 0.125rem solid #fff;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-}
-
-@media screen and (max-width: 799px) {
-  .restart {
-    order: 1;
-    position: absolute;
-    left: 1rem;
+  .restart,
+  .home {
+    font-size: 1rem;
   }
 }
 
@@ -74,13 +103,27 @@ body {
 }
 
 .footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 3rem;
-  background: steelblue;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 3.5rem;
+  background: var(--main-color);
+  padding: 0 3rem 0;
 }
 
-.hidden {
-  display: none !important;
+.restart,
+.home {
+  color: var(--font-color);
+  /* font-size: inherit; */
+  cursor: pointer;
+  background-color: transparent;
+  border: 0.125rem solid var(--font-color);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.restart:hover,
+.home:hover {
+  color: var(--main-color);
+  background-color: var(--font-color);
 }

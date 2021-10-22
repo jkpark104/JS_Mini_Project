@@ -1,22 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flip-Card & Memory Game</title>
-    <link rel="stylesheet" href="./CSS/cardFlip.css" />
+    <link rel="stylesheet" href="CSS/reset.css" />
+    <link rel="stylesheet" href="CSS/base.css" />
+    <link rel="stylesheet" href="CSS/cardFlip.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <nav class="scoreBoard">
-      lifes :
-      <span class="life">0</span>
-      attempts :
-      <span class="attempt">0</span>
-    </nav>
-    <h1>Level <span class="gameLevel">1</span></h1>
-    <div class="elapsedTime">00:00:00</div>
-    <section class="cardSection"></section>
-    <script src="./JS/cardFlip.js"></script>
+    <header class="header">
+      <h1 class="title a11y-hidden">Mini Game</h1>
+      <nav class="navigation">
+        <div class="game-mode">
+          <button type="button" class="game-mode-button" data-mode="easy">
+            EASY
+          </button>
+          <button
+            type="button"
+            class="game-mode-button current-mode"
+            data-mode="normal"
+          >
+            NORMAL
+          </button>
+          <button type="button" class="game-mode-button" data-mode="hard">
+            HARD
+          </button>
+        </div>
+        <h2 class="display display-title">
+          <i class="fas fa-gamepad"></i> Flip-Card & Memory
+          <i class="fas fa-gamepad"></i>
+        </h2>
+        <div class="wrapper">
+          <span class="display-round">Round: 1</span>
+          <span class="display-score">Score: 0</span>
+        </div>
+      </nav>
+    </header>
+
+    <section class="card-memory-game">
+      <div class="game-status">
+        <h2>Lifes : <span class="userLife"></span></h2>
+      </div>
+      <section class="cardSection"></section>
+    </section>
+
+    <footer class="footer">
+      <a href="./index.html" class="home">HOME</a>
+      <button type="button" class="restart">Restart</button>
+    </footer>
+    <script type="module" src="JS/cardFlip.mjs"></script>
   </body>
 </html>
