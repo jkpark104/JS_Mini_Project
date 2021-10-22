@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "start": "live-server --port=3000",
-    "build": "parcel build index.html"
+    "start": "live-server --port=3000"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
